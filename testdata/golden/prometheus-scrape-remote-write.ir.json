@@ -1,0 +1,65 @@
+{
+  "formatVersion": 1,
+  "alloyVersion": "v1.17.1",
+  "components": [
+    {
+      "id": "kubernetes_pods",
+      "type": "discovery.kubernetes",
+      "label": "pods",
+      "body": {
+        "attrs": {
+          "role": { "t": "string", "v": "pod" }
+        },
+        "blocks": []
+      }
+    },
+    {
+      "id": "remote_write",
+      "type": "prometheus.remote_write",
+      "label": "default",
+      "body": {
+        "attrs": {},
+        "blocks": [
+          {
+            "name": "endpoint",
+            "body": {
+              "attrs": {
+                "url": { "t": "string", "v": "http://localhost:9009/api/v1/push" }
+              },
+              "blocks": [
+                {
+                  "name": "basic_auth",
+                  "body": {
+                    "attrs": {
+                      "username": { "t": "string", "v": "alloy" },
+                      "password": { "t": "string", "v": "secret" }
+                    },
+                    "blocks": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "pod_scrape",
+      "type": "prometheus.scrape",
+      "label": "pods",
+      "body": {
+        "attrs": {
+          "targets": { "t": "ref", "target": "discovery.kubernetes.pods.targets" },
+          "forward_to": {
+            "t": "list",
+            "v": [{ "t": "ref", "target": "prometheus.remote_write.default.receiver" }]
+          },
+          "job_name": { "t": "string", "v": "kubernetes-pods" },
+          "honor_labels": { "t": "bool", "v": true }
+        },
+        "blocks": []
+      }
+    }
+  ],
+  "rawSnippets": []
+}

@@ -1,0 +1,91 @@
+{
+  "formatVersion": 1,
+  "alloyVersion": "v1.17.1",
+  "components": [
+    {
+      "id": "otlp_exporter",
+      "type": "otelcol.exporter.otlp",
+      "label": "default",
+      "body": {
+        "attrs": {},
+        "blocks": [
+          {
+            "name": "client",
+            "body": {
+              "attrs": {
+                "endpoint": { "t": "string", "v": "localhost:4317" }
+              },
+              "blocks": [
+                {
+                  "name": "tls",
+                  "body": {
+                    "attrs": {
+                      "insecure": { "t": "bool", "v": true }
+                    },
+                    "blocks": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "batch_processor",
+      "type": "otelcol.processor.batch",
+      "label": "default",
+      "body": {
+        "attrs": {
+          "send_batch_size": { "t": "number", "v": 1024 }
+        },
+        "blocks": [
+          {
+            "name": "output",
+            "body": {
+              "attrs": {
+                "traces": {
+                  "t": "list",
+                  "v": [{ "t": "ref", "target": "otelcol.exporter.otlp.default.input" }]
+                }
+              },
+              "blocks": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "otlp_receiver",
+      "type": "otelcol.receiver.otlp",
+      "label": "default",
+      "body": {
+        "attrs": {},
+        "blocks": [
+          {
+            "name": "grpc",
+            "body": {
+              "attrs": {
+                "endpoint": { "t": "string", "v": "0.0.0.0:4317" }
+              },
+              "blocks": []
+            }
+          },
+          {
+            "name": "output",
+            "body": {
+              "attrs": {
+                "traces": {
+                  "t": "list",
+                  "v": [{ "t": "ref", "target": "otelcol.processor.batch.default.input" }]
+                }
+              },
+              "blocks": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "rawSnippets": []
+}

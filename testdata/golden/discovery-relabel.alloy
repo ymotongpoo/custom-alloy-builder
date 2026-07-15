@@ -1,0 +1,17 @@
+discovery.kubernetes "services" {
+	role = "service"
+}
+
+discovery.relabel "services" {
+	targets = discovery.kubernetes.services.targets
+	rule {
+		source_labels = ["__meta_kubernetes_namespace"]
+		regex = "default"
+		action = "keep"
+	}
+	rule {
+		source_labels = ["__meta_kubernetes_service_name"]
+		target_label = "service"
+		replacement = "$1"
+	}
+}

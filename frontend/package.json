@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "golden": "node --experimental-strip-types scripts/golden.ts"
   },
   "dependencies": {
     "@xyflow/react": "^12.11.2",

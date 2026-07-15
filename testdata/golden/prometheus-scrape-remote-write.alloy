@@ -1,0 +1,20 @@
+discovery.kubernetes "pods" {
+	role = "pod"
+}
+
+prometheus.remote_write "default" {
+	endpoint {
+		url = "http://localhost:9009/api/v1/push"
+		basic_auth {
+			username = "alloy"
+			password = "secret"
+		}
+	}
+}
+
+prometheus.scrape "pods" {
+	targets = discovery.kubernetes.pods.targets
+	forward_to = [prometheus.remote_write.default.receiver]
+	job_name = "kubernetes-pods"
+	honor_labels = true
+}

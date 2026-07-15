@@ -24,6 +24,45 @@ jobs:
       - run: npm test
       - run: npm run build
 
+  golden:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+      - name: Check golden serializer output
+        working-directory: frontend
+        run: npm run golden
+      - name: Cache Alloy v1.17.1
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/custom-alloy-builder/bin/alloy
+          key: alloy-v1.17.1-linux-amd64
+      - name: Install Alloy v1.17.1
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.cache/custom-alloy-builder/bin" "$HOME/.cache/custom-alloy-builder/downloads"
+          if [ ! -x "$HOME/.cache/custom-alloy-builder/bin/alloy" ]; then
+            curl -fsSL \
+              -o "$HOME/.cache/custom-alloy-builder/downloads/alloy-linux-amd64.zip" \
+              "https://github.com/grafana/alloy/releases/download/v1.17.1/alloy-linux-amd64.zip"
+            unzip -o "$HOME/.cache/custom-alloy-builder/downloads/alloy-linux-amd64.zip" -d "$HOME/.cache/custom-alloy-builder/downloads/alloy"
+            install -m 0755 "$HOME/.cache/custom-alloy-builder/downloads/alloy/alloy-linux-amd64" "$HOME/.cache/custom-alloy-builder/bin/alloy"
+          fi
+          "$HOME/.cache/custom-alloy-builder/bin/alloy" --version
+      - name: Validate golden Alloy fixtures
+        run: |
+          set -euo pipefail
+          for fixture in testdata/golden/*.alloy; do
+            "$HOME/.cache/custom-alloy-builder/bin/alloy" validate "$fixture"
+          done
+
   backend:
     runs-on: ubuntu-latest
     defaults:

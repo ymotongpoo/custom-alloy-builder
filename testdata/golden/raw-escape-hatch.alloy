@@ -1,0 +1,17 @@
+prometheus.exporter.self "default" {
+}
+
+prometheus.echo "default" {
+	format = "text"
+}
+
+prometheus.scrape "self" {
+	targets = prometheus.exporter.self.default.targets
+	forward_to = [prometheus.echo.default.receiver]
+	scrape_interval = "15s"
+}
+
+logging {
+	level = "info"
+	format = "logfmt"
+}

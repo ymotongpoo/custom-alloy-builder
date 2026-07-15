@@ -1,0 +1,45 @@
+{
+  "formatVersion": 1,
+  "alloyVersion": "v1.17.1",
+  "components": [
+    {
+      "id": "self_metrics",
+      "type": "prometheus.exporter.self",
+      "label": "default",
+      "body": {
+        "attrs": {},
+        "blocks": []
+      }
+    },
+    {
+      "id": "echo_metrics",
+      "type": "prometheus.echo",
+      "label": "default",
+      "body": {
+        "attrs": {
+          "format": { "t": "raw", "v": "\"text\"" }
+        },
+        "blocks": []
+      }
+    },
+    {
+      "id": "self_scrape",
+      "type": "prometheus.scrape",
+      "label": "self",
+      "body": {
+        "attrs": {
+          "targets": { "t": "ref", "target": "prometheus.exporter.self.default.targets" },
+          "forward_to": {
+            "t": "list",
+            "v": [{ "t": "ref", "target": "prometheus.echo.default.receiver" }]
+          },
+          "scrape_interval": { "t": "raw", "v": "\"15s\"" }
+        },
+        "blocks": []
+      }
+    }
+  ],
+  "rawSnippets": [
+    "logging {\n\tlevel = \"info\"\n\tformat = \"logfmt\"\n}"
+  ]
+}

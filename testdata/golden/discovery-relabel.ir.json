@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "alloyVersion": "v1.17.1",
+  "components": [
+    {
+      "id": "kubernetes_services",
+      "type": "discovery.kubernetes",
+      "label": "services",
+      "body": {
+        "attrs": {
+          "role": { "t": "string", "v": "service" }
+        },
+        "blocks": []
+      }
+    },
+    {
+      "id": "service_relabel",
+      "type": "discovery.relabel",
+      "label": "services",
+      "body": {
+        "attrs": {
+          "targets": { "t": "ref", "target": "discovery.kubernetes.services.targets" }
+        },
+        "blocks": [
+          {
+            "name": "rule",
+            "body": {
+              "attrs": {
+                "source_labels": {
+                  "t": "list",
+                  "v": [{ "t": "string", "v": "__meta_kubernetes_namespace" }]
+                },
+                "regex": { "t": "raw", "v": "\"default\"" },
+                "action": { "t": "string", "v": "keep" }
+              },
+              "blocks": []
+            }
+          },
+          {
+            "name": "rule",
+            "body": {
+              "attrs": {
+                "source_labels": {
+                  "t": "list",
+                  "v": [{ "t": "string", "v": "__meta_kubernetes_service_name" }]
+                },
+                "target_label": { "t": "string", "v": "service" },
+                "replacement": { "t": "string", "v": "$1" }
+              },
+              "blocks": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "rawSnippets": []
+}

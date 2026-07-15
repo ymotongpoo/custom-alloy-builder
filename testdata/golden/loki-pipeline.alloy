@@ -1,0 +1,15 @@
+loki.write "default" {
+	endpoint {
+		url = "http://localhost:3100/loki/api/v1/push"
+	}
+}
+
+loki.process "default" {
+	forward_to = [loki.write.default.receiver]
+	stage.json {
+		expressions = {"level" = "level", "message" = "msg"}
+	}
+	stage.labels {
+		values = {"level" = "level"}
+	}
+}

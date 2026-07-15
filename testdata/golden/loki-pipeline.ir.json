@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "alloyVersion": "v1.17.1",
+  "components": [
+    {
+      "id": "logs_writer",
+      "type": "loki.write",
+      "label": "default",
+      "body": {
+        "attrs": {},
+        "blocks": [
+          {
+            "name": "endpoint",
+            "body": {
+              "attrs": {
+                "url": { "t": "string", "v": "http://localhost:3100/loki/api/v1/push" }
+              },
+              "blocks": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "logs_process",
+      "type": "loki.process",
+      "label": "default",
+      "body": {
+        "attrs": {
+          "forward_to": {
+            "t": "list",
+            "v": [{ "t": "ref", "target": "loki.write.default.receiver" }]
+          }
+        },
+        "blocks": [
+          {
+            "name": "stage.json",
+            "body": {
+              "attrs": {
+                "expressions": {
+                  "t": "map",
+                  "v": {
+                    "level": { "t": "string", "v": "level" },
+                    "message": { "t": "string", "v": "msg" }
+                  }
+                }
+              },
+              "blocks": []
+            }
+          },
+          {
+            "name": "stage.labels",
+            "body": {
+              "attrs": {
+                "values": {
+                  "t": "map",
+                  "v": {
+                    "level": { "t": "string", "v": "level" }
+                  }
+                }
+              },
+              "blocks": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "rawSnippets": []
+}

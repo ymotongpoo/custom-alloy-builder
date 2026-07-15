@@ -1,0 +1,24 @@
+otelcol.exporter.otlp "default" {
+	client {
+		endpoint = "localhost:4317"
+		tls {
+			insecure = true
+		}
+	}
+}
+
+otelcol.processor.batch "default" {
+	send_batch_size = 1024
+	output {
+		traces = [otelcol.exporter.otlp.default.input]
+	}
+}
+
+otelcol.receiver.otlp "default" {
+	grpc {
+		endpoint = "0.0.0.0:4317"
+	}
+	output {
+		traces = [otelcol.processor.batch.default.input]
+	}
+}
