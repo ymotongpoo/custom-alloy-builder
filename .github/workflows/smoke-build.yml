@@ -1,0 +1,62 @@
+name: Smoke Build
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  smoke-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+      - name: Verify backend
+        working-directory: backend
+        env:
+          TMPDIR: /home/runner/.cache/custom-alloy-builder/tmp
+          GOTMPDIR: /home/runner/.cache/custom-alloy-builder/tmp
+        run: |
+          mkdir -p "$TMPDIR"
+          go vet ./...
+          go test ./...
+      - name: Build custom Alloy
+        working-directory: backend
+        env:
+          TMPDIR: /home/runner/.cache/custom-alloy-builder/tmp
+          GOTMPDIR: /home/runner/.cache/custom-alloy-builder/tmp
+        run: |
+          mkdir -p "$TMPDIR"
+          go run ./cmd/buildctl \
+            -version v1.17.1 \
+            -components prometheus.scrape,prometheus.remote_write,loki.write,otelcol.receiver.otlp,discovery.kubernetes \
+            -schema-root ../schemas \
+            -o build/alloy-custom
+      - name: Verify custom Alloy
+        working-directory: backend
+        run: |
+          ./build/alloy-custom --version
+          cat > /tmp/included.alloy <<'EOF'
+          prometheus.scrape "demo" {
+            targets = [{"__address__" = "localhost:9090"}]
+            forward_to = [prometheus.remote_write.demo.receiver]
+          }
+
+          prometheus.remote_write "demo" {
+            endpoint {
+              url = "http://localhost:9009/api/prom/push"
+            }
+          }
+          EOF
+          ./build/alloy-custom validate /tmp/included.alloy
+          cat > /tmp/excluded.alloy <<'EOF'
+          local.file "secret" {
+            filename = "/tmp/secret"
+          }
+          EOF
+          if ./build/alloy-custom validate /tmp/excluded.alloy; then
+            echo "excluded local.file unexpectedly validated"
+            exit 1
+          fi
