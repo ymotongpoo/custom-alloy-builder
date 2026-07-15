@@ -225,6 +225,16 @@
   text-decoration: none;
 }
 
+.image-artifact {
+  display: grid;
+  gap: 4px;
+}
+
+.image-artifact span,
+.image-artifact code {
+  overflow-wrap: anywhere;
+}
+
 .local-run-panel {
   align-self: start;
   grid-column: 1 / -1;

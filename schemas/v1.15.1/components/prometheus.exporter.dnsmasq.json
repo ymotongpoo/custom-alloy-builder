@@ -1,0 +1,46 @@
+{
+  "name": "prometheus.exporter.dnsmasq",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/dnsmasq",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "address",
+        "required": false,
+        "default": "localhost:53",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "leases_file",
+        "required": false,
+        "default": "/var/lib/misc/dnsmasq.leases",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "expose_leases",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

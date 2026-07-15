@@ -1,0 +1,103 @@
+{
+  "name": "prometheus.exporter.github",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/github",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "api_url",
+        "required": false,
+        "default": "https://api.github.com",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "repositories",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "organizations",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "users",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "api_token",
+        "required": false,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "api_token_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "github_app_key_path",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "github_app_id",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "github_app_installation_id",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "github_rate_limit",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

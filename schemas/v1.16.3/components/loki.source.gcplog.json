@@ -1,0 +1,523 @@
+{
+  "name": "loki.source.gcplog",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/source/gcplog",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "loki.LogsReceiver",
+            "goType": "loki.LogsReceiver"
+          }
+        }
+      },
+      {
+        "name": "relabel_rules",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "raw",
+            "goType": "relabel.Config"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "pull",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "project_id",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "subscription",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "use_incoming_timestamp",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "use_full_line",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "limit",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "max_outstanding_bytes",
+                    "required": false,
+                    "default": 1073741824,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_outstanding_messages",
+                    "required": false,
+                    "default": 1000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "push",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "graceful_shutdown_timeout",
+              "required": false,
+              "default": "30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "push_timeout",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "use_incoming_timestamp",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "use_full_line",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "http",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "listen_address",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "listen_port",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "conn_limit",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "server_read_timeout",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "server_write_timeout",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "server_idle_timeout",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "tls",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "cert_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "key_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "secret"
+                          }
+                        },
+                        {
+                          "name": "cert_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "key_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "client_auth_type",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "client_ca_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "client_ca",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "cipher_suites",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "min_version",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "http2",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": false,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        },
+                        {
+                          "name": "max_handlers",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        },
+                        {
+                          "name": "max_concurrent_streams",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        },
+                        {
+                          "name": "max_decoder_header_table_size",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        },
+                        {
+                          "name": "max_encoder_header_table_size",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        },
+                        {
+                          "name": "max_read_frame_size",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        },
+                        {
+                          "name": "permit_prohibited_ciphers",
+                          "required": false,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        },
+                        {
+                          "name": "idle_timeout",
+                          "required": false,
+                          "type": {
+                            "kind": "duration"
+                          }
+                        },
+                        {
+                          "name": "read_idle_timeout",
+                          "required": false,
+                          "type": {
+                            "kind": "duration"
+                          }
+                        },
+                        {
+                          "name": "ping_timeout",
+                          "required": false,
+                          "type": {
+                            "kind": "duration"
+                          }
+                        },
+                        {
+                          "name": "write_byte_timeout",
+                          "required": false,
+                          "type": {
+                            "kind": "duration"
+                          }
+                        },
+                        {
+                          "name": "max_upload_buffer_per_connection",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        },
+                        {
+                          "name": "max_upload_buffer_per_stream",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "grpc",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "listen_address",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "listen_port",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "conn_limit",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_connection_age",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "max_connection_age_grace",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "max_connection_idle",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "server_max_recv_msg_size",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "server_max_send_msg_size",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "server_max_concurrent_streams",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "tls",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "cert_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "key_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "secret"
+                          }
+                        },
+                        {
+                          "name": "cert_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "key_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "client_auth_type",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "client_ca_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "client_ca",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "cipher_suites",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "min_version",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

@@ -22,7 +22,7 @@ rm -rf "$clone_dir/schemagen"
 mkdir -p "$clone_dir/schemagen"
 cp "$script_dir"/*.go "$clone_dir/schemagen/"
 
-(cd "$clone_dir" && go run ./schemagen -version "$version" -out "$out_dir")
+(cd "$clone_dir" && go run -p "${GO_BUILD_PARALLELISM:-1}" ./schemagen -version "$version" -out "$out_dir")
 
 go_version="$(awk '$1 == "go" { print $2; exit }' "$clone_dir/go.mod")"
 build_image_tag="$(grep -RhoE 'grafana/alloy-build-image:[^ @]+' "$clone_dir/Dockerfile" "$clone_dir/.github" 2>/dev/null | head -n 1 | sed 's|^grafana/alloy-build-image:||')"

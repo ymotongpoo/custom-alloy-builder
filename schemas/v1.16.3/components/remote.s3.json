@@ -1,0 +1,102 @@
+{
+  "name": "remote.s3",
+  "importPath": "github.com/grafana/alloy/internal/component/remote/s3",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "path",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "poll_frequency",
+        "required": false,
+        "default": "10m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "is_secret",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "client",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "key",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "secret",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "endpoint",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "disable_ssl",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "use_path_style",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "region",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "signing_region",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "content",
+        "required": true,
+        "type": {
+          "kind": "optional_secret"
+        }
+      }
+    ]
+  }
+}

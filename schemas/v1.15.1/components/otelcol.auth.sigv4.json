@@ -1,0 +1,91 @@
+{
+  "name": "otelcol.auth.sigv4",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/sigv4",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "region",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "service",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "assume_role",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "arn",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "session_name",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "sts_region",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "handler",
+        "required": true,
+        "type": {
+          "kind": "raw",
+          "goType": "auth.Handler"
+        }
+      }
+    ]
+  }
+}

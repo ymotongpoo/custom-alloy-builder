@@ -31,7 +31,7 @@ export interface CreateBuildRequest {
   version: string
   components: string[]
   targets: BuildTarget[]
-  output: 'binary'
+  output: 'binary' | 'image'
   strategy: 'docker' | 'host'
 }
 
@@ -44,6 +44,7 @@ export type BuildStatus = 'queued' | 'cloning' | 'generating' | 'building' | 'do
 export interface BuildArtifact {
   name: string
   size: number
+  kind?: 'binary' | 'image' | 'oci'
 }
 
 export interface BuildSnapshot {

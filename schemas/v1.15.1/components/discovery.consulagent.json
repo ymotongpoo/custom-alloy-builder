@@ -1,0 +1,176 @@
+{
+  "name": "discovery.consulagent",
+  "importPath": "github.com/grafana/alloy/internal/component/discovery/consulagent",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "server",
+        "required": false,
+        "default": "localhost:8500",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "token",
+        "required": false,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "datacenter",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "tag_separator",
+        "required": false,
+        "default": ",",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "scheme",
+        "required": false,
+        "default": "http",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "username",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "password",
+        "required": false,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "refresh_interval",
+        "required": false,
+        "default": "30s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "services",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "tags",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "tls_config",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ca_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "ca_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "key_pem",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "key_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "server_name",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "insecure_skip_verify",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "min_version",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

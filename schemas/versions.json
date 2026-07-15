@@ -1,6 +1,18 @@
 {
   "versions": [
     {
+      "version": "v1.15.1",
+      "goVersion": "1.25.9",
+      "buildImageTag": "v0.1.30",
+      "alwaysIncludePkgs": []
+    },
+    {
+      "version": "v1.16.3",
+      "goVersion": "1.26.3",
+      "buildImageTag": "v0.1.32",
+      "alwaysIncludePkgs": []
+    },
+    {
       "version": "v1.17.1",
       "goVersion": "1.26.4",
       "buildImageTag": "v0.1.33",

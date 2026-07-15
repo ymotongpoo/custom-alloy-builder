@@ -1,0 +1,90 @@
+{
+  "name": "prometheus.exporter.gcp",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/gcp",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "project_ids",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "metrics_prefixes",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "extra_filters",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "request_interval",
+        "required": false,
+        "default": "5m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "request_offset",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "ingest_delay",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "drop_delegated_projects",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "gcp_client_timeout",
+        "required": false,
+        "default": "15s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

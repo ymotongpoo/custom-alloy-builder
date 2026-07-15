@@ -1,0 +1,125 @@
+{
+  "name": "loki.source.azure_event_hubs",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/source/azure_event_hubs",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "fully_qualified_namespace",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "event_hubs",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "group_id",
+        "required": false,
+        "default": "loki.source.azure_event_hubs",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "use_incoming_timestamp",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "disallow_custom_messages",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "relabel_rules",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "raw",
+            "goType": "relabel.Config"
+          }
+        }
+      },
+      {
+        "name": "labels",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "assignor",
+        "required": false,
+        "default": "range",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "loki.LogsReceiver",
+            "goType": "loki.LogsReceiver"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "authentication",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "mechanism",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "scopes",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "connection_string",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

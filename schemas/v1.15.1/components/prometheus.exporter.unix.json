@@ -1,0 +1,647 @@
+{
+  "name": "prometheus.exporter.unix",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/unix",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "include_exporter_metrics",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "procfs_path",
+        "required": false,
+        "default": "/proc",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "sysfs_path",
+        "required": false,
+        "default": "/sys",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "rootfs_path",
+        "required": false,
+        "default": "/",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "udev_data_path",
+        "required": false,
+        "default": "/run/udev/data",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "enable_collectors",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "disable_collectors",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "set_collectors",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "arp",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "device_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "device_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "netlink",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "bcache",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "priority_stats",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "cpu",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "bugs_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "guest",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "info",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "flags_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "disk",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "device_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "device_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "ethtool",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "device_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "device_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "metrics_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "filesystem",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "fs_types_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "mount_points_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "mount_timeout",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "hwmon",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "chip_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "chip_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "ipvs",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "backend_labels",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "ntp",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ip_ttl",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "local_offset_tolerance",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_distance",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "protocol_version",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "server",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "server_is_local",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "netclass",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ignore_invalid_speed_device",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "ignored_devices",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "netdev",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "address_info",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "device_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "device_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "netstat",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "fields",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "perf",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "cpus",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "tracepoint",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "disable_hardware_profilers",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "disable_software_profilers",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "disable_cache_profilers",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "hardware_profilers",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "software_profilers",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "cache_profilers",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "powersupply",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ignored_supplies",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "runit",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "service_dir",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "supervisord",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "url",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "sysctl",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "include_info",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "systemd",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enable_restarts",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "start_time",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "task_metrics",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "unit_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "unit_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "tapestats",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ignored_devices",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "textfile",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "directory",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "vmstat",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "fields",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

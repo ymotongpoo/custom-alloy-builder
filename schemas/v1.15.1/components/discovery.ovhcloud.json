@@ -1,0 +1,67 @@
+{
+  "name": "discovery.ovhcloud",
+  "importPath": "github.com/grafana/alloy/internal/component/discovery/ovhcloud",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "endpoint",
+        "required": false,
+        "default": "ovh-eu",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "application_key",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "application_secret",
+        "required": true,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "consumer_key",
+        "required": true,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "refresh_interval",
+        "required": false,
+        "default": "1m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "service",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

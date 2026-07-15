@@ -1,0 +1,162 @@
+{
+  "name": "otelcol.exporter.file",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/file",
+  "stability": "public-preview",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "path",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "append",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "format",
+        "required": false,
+        "default": "json",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "encoding",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "compression",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "flush_interval",
+        "required": false,
+        "default": "1s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "rotation",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "max_megabytes",
+              "required": false,
+              "default": 100,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_days",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_backups",
+              "required": false,
+              "default": 100,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "localtime",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "group_by",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "resource_attribute",
+              "required": false,
+              "default": "fileexporter.path_segment",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "max_open_files",
+              "required": false,
+              "default": 100,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

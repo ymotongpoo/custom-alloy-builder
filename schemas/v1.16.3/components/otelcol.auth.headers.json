@@ -1,0 +1,91 @@
+{
+  "name": "otelcol.auth.headers",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/headers",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "blocks": [
+      {
+        "name": "header",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "key",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "value",
+              "required": false,
+              "type": {
+                "kind": "optional_secret"
+              }
+            },
+            {
+              "name": "from_context",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "from_attribute",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "action",
+              "required": false,
+              "default": "upsert",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "handler",
+        "required": true,
+        "type": {
+          "kind": "raw",
+          "goType": "auth.Handler"
+        }
+      }
+    ]
+  }
+}

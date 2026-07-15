@@ -1,0 +1,35 @@
+{
+  "name": "otelcol.exporter.loki",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/loki",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "loki.LogsReceiver",
+            "goType": "loki.LogsReceiver"
+          }
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

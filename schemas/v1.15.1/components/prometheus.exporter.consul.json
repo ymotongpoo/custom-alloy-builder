@@ -1,0 +1,119 @@
+{
+  "name": "prometheus.exporter.consul",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/consul",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "server",
+        "required": false,
+        "default": "http://localhost:8500",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "ca_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "cert_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "key_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "server_name",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "timeout",
+        "required": false,
+        "default": "500ms",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "insecure_skip_verify",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "concurrent_request_limit",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "allow_stale",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "require_consistent",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "kv_prefix",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "kv_filter",
+        "required": false,
+        "default": ".*",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "generate_health_summary",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

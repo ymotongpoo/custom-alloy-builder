@@ -1,0 +1,105 @@
+{
+  "name": "loki.source.windowsevent",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/source/windowsevent",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "locale",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "eventlog_name",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "xpath_query",
+        "required": false,
+        "default": "*",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "bookmark_path",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "poll_interval",
+        "required": false,
+        "default": "3s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "exclude_event_data",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "exclude_user_data",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "exclude_event_message",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "use_incoming_timestamp",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "loki.LogsReceiver",
+            "goType": "loki.LogsReceiver"
+          }
+        }
+      },
+      {
+        "name": "labels",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "legacy_bookmark_path",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

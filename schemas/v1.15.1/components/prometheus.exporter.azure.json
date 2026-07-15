@@ -1,0 +1,151 @@
+{
+  "name": "prometheus.exporter.azure",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/azure",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "subscriptions",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "resource_graph_query_filter",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "resource_type",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "metrics",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "metric_aggregations",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "timespan",
+        "required": false,
+        "default": "PT5M",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "interval",
+        "required": false,
+        "default": "PT1M",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "included_dimensions",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "included_resource_tags",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "metric_namespace",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "metric_name_template",
+        "required": false,
+        "default": "azure_{type}_{metric}_{aggregation}_{unit}",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "metric_help_template",
+        "required": false,
+        "default": "Azure metric {metric} for {type} with aggregation {aggregation} as {unit}",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "azure_cloud_environment",
+        "required": false,
+        "default": "azurecloud",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "validate_dimensions",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "regions",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

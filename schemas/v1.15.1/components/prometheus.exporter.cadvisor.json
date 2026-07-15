@@ -1,0 +1,172 @@
+{
+  "name": "prometheus.exporter.cadvisor",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/cadvisor",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "store_container_labels",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "allowlisted_container_labels",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "env_metadata_allowlist",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "raw_cgroup_prefix_allowlist",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "perf_events_config",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "resctrl_interval",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "disabled_metrics",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "enabled_metrics",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "storage_duration",
+        "required": false,
+        "default": "2m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "containerd_host",
+        "required": false,
+        "default": "/run/containerd/containerd.sock",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "containerd_namespace",
+        "required": false,
+        "default": "k8s.io",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "docker_host",
+        "required": false,
+        "default": "unix:///var/run/docker.sock",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "use_docker_tls",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "docker_tls_cert",
+        "required": false,
+        "default": "cert.pem",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "docker_tls_key",
+        "required": false,
+        "default": "key.pem",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "docker_tls_ca",
+        "required": false,
+        "default": "ca.pem",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "docker_only",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "disable_root_cgroup_stats",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

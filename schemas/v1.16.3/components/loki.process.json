@@ -1,0 +1,1091 @@
+{
+  "name": "loki.process",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/process",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "loki.LogsReceiver",
+            "goType": "loki.LogsReceiver"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "stage",
+        "required": false,
+        "multiple": true,
+        "enum": true,
+        "body": {
+          "blocks": [
+            {
+              "name": "cri",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "max_partial_lines",
+                    "required": false,
+                    "default": 100,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_partial_line_size",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_partial_line_size_truncate",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "decolorize",
+              "required": false,
+              "body": {}
+            },
+            {
+              "name": "docker",
+              "required": false,
+              "body": {}
+            },
+            {
+              "name": "drop",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "drop_counter_reason",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "value",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "separator",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "expression",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "older_than",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "longer_than",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "eventlogmessage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "source",
+                    "required": false,
+                    "default": "message",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "drop_invalid_labels",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "overwrite_existing",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "geoip",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "db",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "db_type",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "custom_lookups",
+                    "required": false,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "json",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "expressions",
+                    "required": true,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "drop_malformed",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "label_keep",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "values",
+                    "required": true,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "label_drop",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "values",
+                    "required": true,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "values",
+                    "required": true,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "source_type",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "limit",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "rate",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "burst",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "drop",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "by_label_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "max_distinct_labels",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "logfmt",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "mapping",
+                    "required": true,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "luhn",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "replacement",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "min_length",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "delimiters",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "match",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "selector",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "action",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "pipeline_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "drop_counter_reason",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "stage",
+                    "required": false,
+                    "multiple": true,
+                    "enum": true,
+                    "body": {}
+                  }
+                ]
+              }
+            },
+            {
+              "name": "metrics",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "metric",
+                    "required": false,
+                    "multiple": true,
+                    "enum": true,
+                    "body": {
+                      "blocks": [
+                        {
+                          "name": "counter",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "name",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "description",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "source",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "prefix",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "max_idle_duration",
+                                "required": false,
+                                "default": "5m0s",
+                                "type": {
+                                  "kind": "duration"
+                                }
+                              },
+                              {
+                                "name": "value",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "action",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "match_all",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "count_entry_bytes",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "gauge",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "name",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "description",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "source",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "prefix",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "max_idle_duration",
+                                "required": false,
+                                "default": "5m0s",
+                                "type": {
+                                  "kind": "duration"
+                                }
+                              },
+                              {
+                                "name": "value",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "action",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "histogram",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "name",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "description",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "source",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "prefix",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "max_idle_duration",
+                                "required": false,
+                                "default": "5m0s",
+                                "type": {
+                                  "kind": "duration"
+                                }
+                              },
+                              {
+                                "name": "value",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "buckets",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "number"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "multiline",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "firstline",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "max_lines",
+                    "required": false,
+                    "default": 128,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_wait_time",
+                    "required": false,
+                    "default": "3s",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "trim_newlines",
+                    "required": false,
+                    "default": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "output",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "source",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "pack",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "labels",
+                    "required": true,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "ingest_timestamp",
+                    "required": false,
+                    "default": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "pattern",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "pattern",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "labels_from_groups",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "regex",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "expression",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "labels_from_groups",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "replace",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "expression",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "replace",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "static_labels",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "values",
+                    "required": true,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "structured_metadata",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "values",
+                    "required": false,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "regex",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "structured_metadata_drop",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "values",
+                    "required": true,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sampling",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "drop_counter_reason",
+                    "required": false,
+                    "default": "sampling_stage",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "rate",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "template",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "source",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "template",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "tenant",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "label",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "source",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "value",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "truncate",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "rule",
+                    "required": true,
+                    "multiple": true,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "limit",
+                          "required": true,
+                          "type": {
+                            "kind": "number"
+                          }
+                        },
+                        {
+                          "name": "suffix",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "sources",
+                          "required": false,
+                          "type": {
+                            "kind": "list",
+                            "elem": {
+                              "kind": "string"
+                            }
+                          }
+                        },
+                        {
+                          "name": "source_type",
+                          "required": false,
+                          "default": "line",
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "timestamp",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "source",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "format",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "fallback_formats",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "location",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "action_on_failure",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "windowsevent",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "source",
+                    "required": false,
+                    "default": "message",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "drop_invalid_labels",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "overwrite_existing",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "receiver",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "loki.LogsReceiver",
+          "goType": "loki.LogsReceiver"
+        }
+      }
+    ]
+  }
+}

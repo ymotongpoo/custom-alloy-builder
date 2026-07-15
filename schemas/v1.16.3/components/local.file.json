@@ -1,0 +1,51 @@
+{
+  "name": "local.file",
+  "importPath": "github.com/grafana/alloy/internal/component/local/file",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "filename",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "detector",
+        "required": false,
+        "default": 1,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "poll_frequency",
+        "required": false,
+        "default": "1m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "is_secret",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "content",
+        "required": true,
+        "type": {
+          "kind": "optional_secret"
+        }
+      }
+    ]
+  }
+}

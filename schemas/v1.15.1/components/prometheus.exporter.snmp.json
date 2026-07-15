@@ -1,0 +1,173 @@
+{
+  "name": "prometheus.exporter.snmp",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/snmp",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "config_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "concurrency",
+        "required": false,
+        "default": 1,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "config",
+        "required": false,
+        "type": {
+          "kind": "optional_secret"
+        }
+      },
+      {
+        "name": "config_merge_strategy",
+        "required": false,
+        "default": "replace",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "targets",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "map",
+            "value": {
+              "kind": "string"
+            }
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "target",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "address",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "module",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "auth",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "walk_params",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "snmp_context",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            }
+          ],
+          "labels": [
+            {
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "walk_param",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "max_repetitions",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "retries",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "timeout",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "use_unconnected_udp_socket",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "labels": [
+            {
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

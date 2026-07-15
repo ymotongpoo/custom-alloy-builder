@@ -1,0 +1,279 @@
+{
+  "name": "prometheus.exporter.kafka",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/kafka",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "instance",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "kafka_uris",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "use_sasl",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "use_sasl_handshake",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "sasl_username",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "sasl_password",
+        "required": false,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "sasl_mechanism",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "sasl_disable_pafx_fast",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "use_tls",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "tls_server_name",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "ca_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "cert_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "key_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "insecure_skip_verify",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "kafka_version",
+        "required": false,
+        "default": "2.0.0",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "use_zookeeper_lag",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "zookeeper_uris",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "kafka_cluster_name",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "metadata_refresh_interval",
+        "required": false,
+        "default": "1m",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "gssapi_service_name",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "gssapi_kerberos_config_path",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "gssapi_realm",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "gssapi_key_tab_path",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "gssapi_kerberos_auth_type",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "offset_show_all",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "topic_workers",
+        "required": false,
+        "default": 100,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "allow_concurrency",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "allow_auto_topic_creation",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "max_offsets",
+        "required": false,
+        "default": 1000,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "prune_interval_seconds",
+        "required": false,
+        "default": 30,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "topics_filter_regex",
+        "required": false,
+        "default": ".*",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "topics_exclude_regex",
+        "required": false,
+        "default": "^$",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "groups_filter_regex",
+        "required": false,
+        "default": ".*",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "groups_exclude_regex",
+        "required": false,
+        "default": "^$",
+        "type": {
+          "kind": "string"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "discovery.dns",
+  "importPath": "github.com/grafana/alloy/internal/component/discovery/dns",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "names",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "refresh_interval",
+        "required": false,
+        "default": "30s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "type",
+        "required": false,
+        "default": "SRV",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "port",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

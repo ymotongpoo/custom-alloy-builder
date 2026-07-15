@@ -18,6 +18,7 @@ interface BinaryBuilderProps {
 }
 
 type Strategy = 'docker' | 'host'
+type Output = 'binary' | 'image'
 
 const dockerTargets: BuildTarget[] = [
   { os: 'linux', arch: 'amd64' },
@@ -33,6 +34,7 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
   const [selected, setSelected] = useState<ReadonlySet<string>>(new Set())
   const [query, setQuery] = useState('')
   const [strategy, setStrategy] = useState<Strategy>('docker')
+  const [output, setOutput] = useState<Output>('binary')
   const [targets, setTargets] = useState<ReadonlySet<string>>(new Set(['linux/amd64']))
   const [jobID, setJobID] = useState<string | undefined>()
   const [status, setStatus] = useState<BuildStatus | undefined>()
@@ -66,6 +68,12 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
   }, [logs])
 
   useEffect(() => {
+    if (strategy === 'host' && output === 'image') {
+      setOutput('binary')
+    }
+  }, [output, strategy])
+
+  useEffect(() => {
     if (!jobID) {
       return
     }
@@ -93,7 +101,8 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
   }, [components, query])
 
   const selectedTargets = strategy === 'docker' ? Array.from(targets).map(parseTarget) : [hostTarget()]
-  const canBuild = version !== '' && selected.size > 0 && selectedTargets.length > 0 && !isRunning(status)
+  const canBuild =
+    version !== '' && selected.size > 0 && selectedTargets.length > 0 && !(strategy === 'host' && output === 'image') && !isRunning(status)
 
   async function startBuild() {
     setBuildError(undefined)
@@ -105,7 +114,7 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
         version,
         components: Array.from(selected).sort(),
         targets: selectedTargets,
-        output: 'binary',
+        output,
         strategy,
       })
       setJobID(response.id)
@@ -172,6 +181,28 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
             <label>
               <input type="radio" name="strategy" checked={strategy === 'host'} onChange={() => setStrategy('host')} />
               Host
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>Output</legend>
+            <label>
+              <input
+                type="radio"
+                name="output"
+                checked={output === 'binary'}
+                onChange={() => setOutput('binary')}
+              />
+              Binary
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="output"
+                checked={output === 'image'}
+                disabled={strategy === 'host'}
+                onChange={() => setOutput('image')}
+              />
+              Image
             </label>
           </fieldset>
           <fieldset>
@@ -244,14 +275,28 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
           <div className="artifact-list">
             <h2>Artifacts</h2>
             {artifacts.map((artifact) => (
-              <a key={artifact.name} href={artifactUrl(jobID ?? '', artifact.name)} download>
-                {artifact.name} ({formatBytes(artifact.size)})
-              </a>
+              <ArtifactItem key={artifact.name} jobID={jobID ?? ''} artifact={artifact} />
             ))}
           </div>
         ) : null}
       </aside>
     </section>
+  )
+}
+
+function ArtifactItem({ jobID, artifact }: { jobID: string; artifact: BuildArtifact }) {
+  if (artifact.kind === 'image') {
+    return (
+      <div className="image-artifact">
+        <span>{artifact.name}</span>
+        <code>docker run --rm {artifact.name} --version</code>
+      </div>
+    )
+  }
+  return (
+    <a href={artifactUrl(jobID, artifact.name)} download>
+      {artifact.name} ({formatBytes(artifact.size)})
+    </a>
   )
 }
 

@@ -1,0 +1,20 @@
+{
+  "name": "prometheus.exporter.self",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/self",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {},
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

@@ -11,10 +11,14 @@ on:
 jobs:
   regenerate:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
+    env:
+      # The generator defaults to -p 1 to keep peak disk usage low on small
+      # hosts; CI runners have room, so trade disk for speed.
+      GO_BUILD_PARALLELISM: 4
     strategy:
       matrix:
-        version: [v1.17.1]
+        version: [v1.17.1, v1.16.3, v1.15.1]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5

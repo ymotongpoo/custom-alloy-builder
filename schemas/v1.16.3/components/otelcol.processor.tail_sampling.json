@@ -1,0 +1,2142 @@
+{
+  "name": "otelcol.processor.tail_sampling",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/tail_sampling",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "decision_wait",
+        "required": false,
+        "default": "30s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "decision_wait_after_root_received",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "num_traces",
+        "required": false,
+        "default": 50000,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "block_on_overflow",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "expected_new_traces_per_sec",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "sample_on_first_match",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "drop_pending_traces_on_shutdown",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "maximum_trace_size_bytes",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "decision_cache",
+        "required": false,
+        "type": {
+          "kind": "raw",
+          "goType": "tail_sampling.DecisionCacheConfig"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "policy",
+        "required": true,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "name",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "type",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "latency",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "threshold_ms",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "upper_threshold_ms",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "numeric_attribute",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "key",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "min_value",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_value",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "invert_match",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "probabilistic",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "hash_salt",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "sampling_percentage",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "status_code",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "status_codes",
+                    "required": true,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "string_attribute",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "key",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "values",
+                    "required": true,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "enabled_regex_matching",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "cache_max_size",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "invert_match",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "rate_limiting",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "spans_per_second",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "bytes_limiting",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "bytes_per_second",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "burst_capacity",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "span_count",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "min_spans",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_spans",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "boolean_attribute",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "key",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "value",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "invert_match",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "ottl_condition",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "error_mode",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "span",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "spanevent",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "trace_state",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "key",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "values",
+                    "required": true,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "composite",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "max_total_spans_per_second",
+                    "required": true,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "policy_order",
+                    "required": true,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "composite_sub_policy",
+                    "required": false,
+                    "multiple": true,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "name",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "type",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ],
+                      "blocks": [
+                        {
+                          "name": "latency",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "threshold_ms",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "upper_threshold_ms",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "numeric_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "min_value",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "max_value",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "probabilistic",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "hash_salt",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "sampling_percentage",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "status_code",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "status_codes",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "string_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "values",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "enabled_regex_matching",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "cache_max_size",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "rate_limiting",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "spans_per_second",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "bytes_limiting",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "bytes_per_second",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "burst_capacity",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "span_count",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "min_spans",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "max_spans",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "boolean_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "value",
+                                "required": true,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "ottl_condition",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "error_mode",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "span",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "spanevent",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "trace_state",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "values",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "and",
+                          "required": false,
+                          "body": {
+                            "blocks": [
+                              {
+                                "name": "and_sub_policy",
+                                "required": true,
+                                "multiple": true,
+                                "body": {
+                                  "attributes": [
+                                    {
+                                      "name": "name",
+                                      "required": true,
+                                      "type": {
+                                        "kind": "string"
+                                      }
+                                    },
+                                    {
+                                      "name": "type",
+                                      "required": true,
+                                      "type": {
+                                        "kind": "string"
+                                      }
+                                    }
+                                  ],
+                                  "blocks": [
+                                    {
+                                      "name": "latency",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "threshold_ms",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          },
+                                          {
+                                            "name": "upper_threshold_ms",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "numeric_attribute",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "key",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "string"
+                                            }
+                                          },
+                                          {
+                                            "name": "min_value",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          },
+                                          {
+                                            "name": "max_value",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          },
+                                          {
+                                            "name": "invert_match",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "bool"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "probabilistic",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "hash_salt",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "string"
+                                            }
+                                          },
+                                          {
+                                            "name": "sampling_percentage",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "status_code",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "status_codes",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "list",
+                                              "elem": {
+                                                "kind": "string"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "string_attribute",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "key",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "string"
+                                            }
+                                          },
+                                          {
+                                            "name": "values",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "list",
+                                              "elem": {
+                                                "kind": "string"
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "name": "enabled_regex_matching",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "bool"
+                                            }
+                                          },
+                                          {
+                                            "name": "cache_max_size",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          },
+                                          {
+                                            "name": "invert_match",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "bool"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "rate_limiting",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "spans_per_second",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "bytes_limiting",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "bytes_per_second",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          },
+                                          {
+                                            "name": "burst_capacity",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "span_count",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "min_spans",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          },
+                                          {
+                                            "name": "max_spans",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "number"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "boolean_attribute",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "key",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "string"
+                                            }
+                                          },
+                                          {
+                                            "name": "value",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "bool"
+                                            }
+                                          },
+                                          {
+                                            "name": "invert_match",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "bool"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "ottl_condition",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "error_mode",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "string"
+                                            }
+                                          },
+                                          {
+                                            "name": "span",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "list",
+                                              "elem": {
+                                                "kind": "string"
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "name": "spanevent",
+                                            "required": false,
+                                            "type": {
+                                              "kind": "list",
+                                              "elem": {
+                                                "kind": "string"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "name": "trace_state",
+                                      "required": false,
+                                      "body": {
+                                        "attributes": [
+                                          {
+                                            "name": "key",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "string"
+                                            }
+                                          },
+                                          {
+                                            "name": "values",
+                                            "required": true,
+                                            "type": {
+                                              "kind": "list",
+                                              "elem": {
+                                                "kind": "string"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "rate_allocation",
+                    "required": false,
+                    "multiple": true,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "policy",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "percent",
+                          "required": true,
+                          "type": {
+                            "kind": "number"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "and",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "and_sub_policy",
+                    "required": true,
+                    "multiple": true,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "name",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "type",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ],
+                      "blocks": [
+                        {
+                          "name": "latency",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "threshold_ms",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "upper_threshold_ms",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "numeric_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "min_value",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "max_value",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "probabilistic",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "hash_salt",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "sampling_percentage",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "status_code",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "status_codes",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "string_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "values",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "enabled_regex_matching",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "cache_max_size",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "rate_limiting",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "spans_per_second",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "bytes_limiting",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "bytes_per_second",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "burst_capacity",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "span_count",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "min_spans",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "max_spans",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "boolean_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "value",
+                                "required": true,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "ottl_condition",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "error_mode",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "span",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "spanevent",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "trace_state",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "values",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "not",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "not_sub_policy",
+                    "required": true,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "name",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "type",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ],
+                      "blocks": [
+                        {
+                          "name": "latency",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "threshold_ms",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "upper_threshold_ms",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "numeric_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "min_value",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "max_value",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "probabilistic",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "hash_salt",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "sampling_percentage",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "status_code",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "status_codes",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "string_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "values",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "enabled_regex_matching",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "cache_max_size",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "rate_limiting",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "spans_per_second",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "bytes_limiting",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "bytes_per_second",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "burst_capacity",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "span_count",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "min_spans",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "max_spans",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "boolean_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "value",
+                                "required": true,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "ottl_condition",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "error_mode",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "span",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "spanevent",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "trace_state",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "values",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "drop",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "drop_sub_policy",
+                    "required": true,
+                    "multiple": true,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "name",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "type",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ],
+                      "blocks": [
+                        {
+                          "name": "latency",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "threshold_ms",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "upper_threshold_ms",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "numeric_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "min_value",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "max_value",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "probabilistic",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "hash_salt",
+                                "required": false,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "sampling_percentage",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "status_code",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "status_codes",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "string_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "values",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "enabled_regex_matching",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "cache_max_size",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "rate_limiting",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "spans_per_second",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "bytes_limiting",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "bytes_per_second",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "burst_capacity",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "span_count",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "min_spans",
+                                "required": true,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              },
+                              {
+                                "name": "max_spans",
+                                "required": false,
+                                "type": {
+                                  "kind": "number"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "boolean_attribute",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "value",
+                                "required": true,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              },
+                              {
+                                "name": "invert_match",
+                                "required": false,
+                                "type": {
+                                  "kind": "bool"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "ottl_condition",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "error_mode",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "span",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "spanevent",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "name": "trace_state",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "key",
+                                "required": true,
+                                "type": {
+                                  "kind": "string"
+                                }
+                              },
+                              {
+                                "name": "values",
+                                "required": true,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

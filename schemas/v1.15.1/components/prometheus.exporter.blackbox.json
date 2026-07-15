@@ -1,0 +1,100 @@
+{
+  "name": "prometheus.exporter.blackbox",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/blackbox",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "config_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "config",
+        "required": false,
+        "type": {
+          "kind": "optional_secret"
+        }
+      },
+      {
+        "name": "probe_timeout_offset",
+        "required": false,
+        "default": "500ms",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "targets",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "map",
+            "value": {
+              "kind": "string"
+            }
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "target",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "name",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "address",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "module",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

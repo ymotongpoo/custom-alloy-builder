@@ -79,7 +79,9 @@ func main() {
 		GOOS:          *goos,
 		GOARCH:        *goarch,
 		OutputPath:    *output,
+		Output:        "binary",
 		BuildImageTag: versionInfo.BuildImageTag,
+		GoVersion:     versionInfo.GoVersion,
 	}
 	log.Printf("building Alloy %s for %s/%s with grafana/alloy-build-image:%s", *version, *goos, *goarch, versionInfo.BuildImageTag)
 	if err := (executor.DockerExecutor{}).Build(context.Background(), spec, os.Stdout); err != nil {

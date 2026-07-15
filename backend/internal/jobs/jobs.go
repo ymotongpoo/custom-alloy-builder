@@ -7,7 +7,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"runtime"
 	"slices"
 	"strings"
 	"sync"
@@ -48,6 +47,7 @@ type Request struct {
 type Artifact struct {
 	Name string `json:"name"`
 	Size int64  `json:"size"`
+	Kind string `json:"kind"`
 }
 
 type Snapshot struct {
@@ -339,6 +339,10 @@ func (j *Job) run(ctx context.Context) {
 		j.fail(err)
 		return
 	}
+	if req.Output == "image" {
+		j.buildImage(ctx, artifactDir)
+		return
+	}
 	for _, target := range req.Targets {
 		name := artifactName(req.Version, target)
 		outputPath := filepath.Join(artifactDir, name)
@@ -350,7 +354,9 @@ func (j *Job) run(ctx context.Context) {
 			GOOS:          target.OS,
 			GOARCH:        target.Arch,
 			OutputPath:    outputPath,
+			Output:        req.Output,
 			BuildImageTag: req.VersionInfo.BuildImageTag,
+			GoVersion:     req.VersionInfo.GoVersion,
 		}
 		if err := j.executor().Build(ctx, spec, j.logWriter()); err != nil {
 			j.fail(err)
@@ -361,8 +367,51 @@ func (j *Job) run(ctx context.Context) {
 			j.fail(fmt.Errorf("stat artifact: %w", err))
 			return
 		}
-		j.addArtifact(Artifact{Name: name, Size: info.Size()})
+		j.addArtifact(Artifact{Name: name, Size: info.Size(), Kind: "binary"})
 		j.writeLog("wrote artifact %s", name)
+	}
+	j.setStatus(StatusDone)
+	j.writeLog("build complete")
+	j.finish()
+}
+
+func (j *Job) buildImage(ctx context.Context, artifactDir string) {
+	req := j.req
+	imageTag := imageTag(req.Version, j.id)
+	spec := executor.Spec{
+		Version:       req.Version,
+		WorkDir:       filepath.Join(j.q.workspaceRoot, j.id),
+		CacheRoot:     filepath.Join(j.q.cacheRoot, "build-cache"),
+		GOOS:          req.Targets[0].OS,
+		GOARCH:        strings.Join(targetArches(req.Targets), ","),
+		Output:        req.Output,
+		ImageTag:      imageTag,
+		BuildImageTag: req.VersionInfo.BuildImageTag,
+		GoVersion:     req.VersionInfo.GoVersion,
+	}
+	if len(req.Targets) == 1 {
+		j.writeLog("building image %s for %s/%s", imageTag, req.Targets[0].OS, req.Targets[0].Arch)
+		spec.OutputPath = filepath.Join(artifactDir, imageTag+".txt")
+	} else {
+		name := imageArtifactName(req.Version, j.id)
+		spec.OutputPath = filepath.Join(artifactDir, name)
+		j.writeLog("building OCI image artifact %s for %d target(s)", name, len(req.Targets))
+	}
+	if err := j.executor().Build(ctx, spec, j.logWriter()); err != nil {
+		j.fail(err)
+		return
+	}
+	if len(req.Targets) == 1 {
+		j.addArtifact(Artifact{Name: imageTag, Kind: "image"})
+		j.writeLog("loaded local Docker image %s", imageTag)
+	} else {
+		info, err := os.Stat(spec.OutputPath)
+		if err != nil {
+			j.fail(fmt.Errorf("stat image artifact: %w", err))
+			return
+		}
+		j.addArtifact(Artifact{Name: filepath.Base(spec.OutputPath), Size: info.Size(), Kind: "oci"})
+		j.writeLog("wrote image artifact %s", filepath.Base(spec.OutputPath))
 	}
 	j.setStatus(StatusDone)
 	j.writeLog("build complete")
@@ -452,11 +501,14 @@ func validateRequest(req Request) error {
 	if len(req.ImportPaths) == 0 {
 		return errors.New("at least one component is required")
 	}
-	if req.Output != "binary" {
-		return errors.New("output must be binary")
+	if req.Output != "binary" && req.Output != "image" {
+		return errors.New("output must be binary or image")
 	}
 	if req.Strategy != "docker" && req.Strategy != "host" {
 		return errors.New("strategy must be docker or host")
+	}
+	if req.Strategy == "host" && req.Output == "image" {
+		return errors.New("host strategy does not support image output; use the docker strategy")
 	}
 	if len(req.Targets) == 0 {
 		return errors.New("at least one target is required")
@@ -468,8 +520,8 @@ func validateRequest(req Request) error {
 		if req.Strategy == "docker" && target.OS != "linux" {
 			return errors.New("docker strategy only supports linux targets")
 		}
-		if req.Strategy == "host" && (target.OS != runtime.GOOS || target.Arch != runtime.GOARCH) {
-			return fmt.Errorf("host strategy only supports %s/%s", runtime.GOOS, runtime.GOARCH)
+		if req.Output == "image" && target.OS != req.Targets[0].OS {
+			return errors.New("image output targets must use a single operating system")
 		}
 	}
 	return nil
@@ -478,6 +530,24 @@ func validateRequest(req Request) error {
 func artifactName(version string, target Target) string {
 	cleanVersion := strings.TrimPrefix(version, "v")
 	return fmt.Sprintf("alloy-custom-%s-%s-%s", cleanVersion, target.OS, target.Arch)
+}
+
+func imageArtifactName(version, jobID string) string {
+	cleanVersion := strings.TrimPrefix(version, "v")
+	return fmt.Sprintf("alloy-custom-%s-%s.oci.tar", cleanVersion, jobID)
+}
+
+func imageTag(version, jobID string) string {
+	cleanVersion := strings.TrimPrefix(version, "v")
+	return fmt.Sprintf("alloy-custom:%s-%s", cleanVersion, jobID)
+}
+
+func targetArches(targets []Target) []string {
+	arches := make([]string, 0, len(targets))
+	for _, target := range targets {
+		arches = append(arches, target.Arch)
+	}
+	return arches
 }
 
 func isTerminal(status Status) bool {

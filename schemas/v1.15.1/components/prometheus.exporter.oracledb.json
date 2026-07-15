@@ -1,0 +1,84 @@
+{
+  "name": "prometheus.exporter.oracledb",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/oracledb",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "connection_string",
+        "required": true,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "max_idle_conns",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "max_open_conns",
+        "required": false,
+        "default": 10,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "query_timeout",
+        "required": false,
+        "default": 5,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "default_metrics",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "custom_metrics",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "username",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "password",
+        "required": false,
+        "type": {
+          "kind": "secret"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1543 @@
+{
+  "name": "otelcol.receiver.vcenter",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/vcenter",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "endpoint",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "username",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "password",
+        "required": true,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "collection_interval",
+        "required": false,
+        "default": "1m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "initial_delay",
+        "required": false,
+        "default": "1s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "timeout",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "metrics",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "vcenter.cluster.cpu.effective",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.cpu.limit",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.host.count",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.memory.effective",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.memory.limit",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.vm.count",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.vm_template.count",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.vsan.congestions",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.vsan.latency.avg",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.vsan.operations",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.vsan.throughput",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datacenter.cluster.count",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datacenter.cpu.limit",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datacenter.datastore.count",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datacenter.disk.space",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datacenter.host.count",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datacenter.memory.limit",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datacenter.vm.count",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datastore.disk.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datastore.disk.utilization",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.cpu.capacity",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.cpu.reserved",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.cpu.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.cpu.utilization",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.disk.latency.avg",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.disk.latency.max",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.disk.throughput",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.memory.capacity",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.memory.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.memory.utilization",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.network.packet.rate",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.network.packet.error.rate",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.network.packet.drop.rate",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.network.throughput",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.network.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.vsan.cache.hit_rate",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.vsan.congestions",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.vsan.latency.avg",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.vsan.operations",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.vsan.throughput",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.cpu.shares",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.cpu.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.memory.ballooned",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.memory.granted",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.memory.shares",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.memory.swapped",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.memory.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.cpu.readiness",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.cpu.time",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.cpu.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.cpu.utilization",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.disk.latency.avg",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.disk.latency.max",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.disk.throughput",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.disk.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.disk.utilization",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.memory.ballooned",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.memory.granted",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.memory.swapped",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.memory.swapped_ssd",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.memory.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.memory.utilization",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.network.broadcast.packet.rate",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.network.multicast.packet.rate",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.network.packet.rate",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.network.packet.drop.rate",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.network.throughput",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.network.usage",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.vsan.latency.avg",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.vsan.operations",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.vsan.throughput",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "resource_attributes",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "vcenter.datacenter.name",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.cluster.name",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.datastore.name",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.host.name",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.inventory_path",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.resource_pool.name",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.virtual_app.inventory_path",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.virtual_app.name",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.id",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm.name",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm_template.id",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vcenter.vm_template.name",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "tls",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ca_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "ca_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "key_pem",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "key_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "min_version",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "max_version",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "reload_interval",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "cipher_suites",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "include_system_ca_certs_pool",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "curve_preferences",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "insecure",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "insecure_skip_verify",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "server_name",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "tpm",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "path",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "owner_auth",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "auth",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

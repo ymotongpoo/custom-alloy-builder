@@ -34,6 +34,36 @@ func TestQueueRunsJobTransitionsAndArtifacts(t *testing.T) {
 	if snapshot.Artifacts[0].Size == 0 {
 		t.Fatal("artifact size = 0, want non-zero")
 	}
+	if snapshot.Artifacts[0].Kind != "binary" {
+		t.Fatalf("artifact kind = %q, want binary", snapshot.Artifacts[0].Kind)
+	}
+}
+
+func TestQueueRunsImageJobAsLoadedDockerImage(t *testing.T) {
+	queue := newTestQueue(t)
+	job, err := queue.Enqueue(Request{
+		Version:     "v1.17.1",
+		ImportPaths: []string{"github.com/grafana/alloy/internal/component/prometheus/scrape"},
+		Targets:     []Target{{OS: "linux", Arch: "amd64"}},
+		Output:      "image",
+		Strategy:    "docker",
+		VersionInfo: buildspec.VersionInfo{Version: "v1.17.1", BuildImageTag: "v0.1.33"},
+	})
+	if err != nil {
+		t.Fatalf("Enqueue() error = %v", err)
+	}
+
+	waitForStatus(t, job, StatusDone)
+	snapshot := job.Snapshot()
+	if len(snapshot.Artifacts) != 1 {
+		t.Fatalf("artifacts = %v, want 1", snapshot.Artifacts)
+	}
+	if snapshot.Artifacts[0].Kind != "image" {
+		t.Fatalf("artifact kind = %q, want image", snapshot.Artifacts[0].Kind)
+	}
+	if snapshot.Artifacts[0].Name == "" {
+		t.Fatal("image tag is empty")
+	}
 }
 
 func TestSubscribeReplaysExistingLogsAndStreamsNewLogs(t *testing.T) {

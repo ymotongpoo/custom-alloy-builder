@@ -1,0 +1,598 @@
+{
+  "name": "loki.write",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/write",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "external_labels",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "max_streams",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "endpoint",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "name",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "url",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "batch_wait",
+              "required": false,
+              "default": "1s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "batch_size",
+              "required": false,
+              "default": 1048576,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "remote_timeout",
+              "required": false,
+              "default": "10s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "headers",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "min_backoff_period",
+              "required": false,
+              "default": "500ms",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_backoff_period",
+              "required": false,
+              "default": "5m0s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_backoff_retries",
+              "required": false,
+              "default": 10,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "tenant_id",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "retry_on_http_429",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "bearer_token",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "bearer_token_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "proxy_url",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "config.URL"
+              }
+            },
+            {
+              "name": "no_proxy",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "proxy_from_environment",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "proxy_connect_header",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "list",
+                  "elem": {
+                    "kind": "secret"
+                  }
+                }
+              }
+            },
+            {
+              "name": "follow_redirects",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "enable_http2",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "http_headers",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "list",
+                  "elem": {
+                    "kind": "secret"
+                  }
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "basic_auth",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "username",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "password",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "password_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "authorization",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "type",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "credentials",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "credentials_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "oauth2",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "client_id",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "client_secret",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "client_secret_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "scopes",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "token_url",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "endpoint_params",
+                    "required": false,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "proxy_url",
+                    "required": false,
+                    "type": {
+                      "kind": "raw",
+                      "goType": "config.URL"
+                    }
+                  },
+                  {
+                    "name": "no_proxy",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "proxy_from_environment",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "proxy_connect_header",
+                    "required": false,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "list",
+                        "elem": {
+                          "kind": "secret"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "tls_config",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "ca_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "ca_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "cert_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "cert_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "key_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "secret"
+                          }
+                        },
+                        {
+                          "name": "key_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "server_name",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "insecure_skip_verify",
+                          "required": false,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        },
+                        {
+                          "name": "min_version",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "tls_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ca_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "ca_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "key_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "server_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "insecure_skip_verify",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "min_version",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "queue_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "capacity",
+                    "required": false,
+                    "default": 10485760,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "min_shards",
+                    "required": false,
+                    "default": 1,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "drain_timeout",
+                    "required": false,
+                    "default": "15s",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "block_on_overflow",
+                    "required": false,
+                    "default": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "wal",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "max_segment_age",
+              "required": false,
+              "default": "1h0m0s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "min_read_frequency",
+              "required": false,
+              "default": "250ms",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_read_frequency",
+              "required": false,
+              "default": "1s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "drain_timeout",
+              "required": false,
+              "default": "15s",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "receiver",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "loki.LogsReceiver",
+          "goType": "loki.LogsReceiver"
+        }
+      }
+    ]
+  }
+}

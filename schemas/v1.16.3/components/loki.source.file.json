@@ -1,0 +1,146 @@
+{
+  "name": "loki.source.file",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/source/file",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      },
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "loki.LogsReceiver",
+            "goType": "loki.LogsReceiver"
+          }
+        }
+      },
+      {
+        "name": "encoding",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "tail_from_end",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "legacy_positions_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "on_positions_file_error",
+        "required": false,
+        "default": "restart_from_beginning",
+        "type": {
+          "kind": "string"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "decompression",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "initial_delay",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "format",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "file_watch",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "min_poll_frequency",
+              "required": false,
+              "default": "250ms",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_poll_frequency",
+              "required": false,
+              "default": "250ms",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "file_match",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "sync_period",
+              "required": false,
+              "default": "10s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "ignore_older_than",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

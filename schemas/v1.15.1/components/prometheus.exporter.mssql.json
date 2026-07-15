@@ -1,0 +1,68 @@
+{
+  "name": "prometheus.exporter.mssql",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/mssql",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "connection_string",
+        "required": true,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "connection_name",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "max_idle_connections",
+        "required": false,
+        "default": 3,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "max_open_connections",
+        "required": false,
+        "default": 3,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "timeout",
+        "required": false,
+        "default": "10s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "query_config",
+        "required": false,
+        "type": {
+          "kind": "optional_secret"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

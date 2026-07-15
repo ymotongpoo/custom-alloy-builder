@@ -1,0 +1,46 @@
+{
+  "name": "prometheus.exporter.catchpoint",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/catchpoint",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "verbose_logging",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "webhook_path",
+        "required": false,
+        "default": "/catchpoint-webhook",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "port",
+        "required": false,
+        "default": "9090",
+        "type": {
+          "kind": "string"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

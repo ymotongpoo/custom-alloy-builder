@@ -1,0 +1,799 @@
+{
+  "name": "prometheus.remote_write",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/remotewrite",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "external_labels",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "endpoint",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "name",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "url",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "remote_timeout",
+              "required": false,
+              "default": "30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "headers",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "send_exemplars",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "send_native_histograms",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "protobuf_message",
+              "required": false,
+              "default": "prometheus.WriteRequest",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "bearer_token",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "bearer_token_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "proxy_url",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "config.URL"
+              }
+            },
+            {
+              "name": "no_proxy",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "proxy_from_environment",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "proxy_connect_header",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "list",
+                  "elem": {
+                    "kind": "secret"
+                  }
+                }
+              }
+            },
+            {
+              "name": "follow_redirects",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "enable_http2",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "http_headers",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "list",
+                  "elem": {
+                    "kind": "secret"
+                  }
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "basic_auth",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "username",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "password",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "password_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "authorization",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "type",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "credentials",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "credentials_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "oauth2",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "client_id",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "client_secret",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "client_secret_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "scopes",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "token_url",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "endpoint_params",
+                    "required": false,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "proxy_url",
+                    "required": false,
+                    "type": {
+                      "kind": "raw",
+                      "goType": "config.URL"
+                    }
+                  },
+                  {
+                    "name": "no_proxy",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "proxy_from_environment",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "proxy_connect_header",
+                    "required": false,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "list",
+                        "elem": {
+                          "kind": "secret"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "tls_config",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "ca_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "ca_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "cert_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "cert_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "key_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "secret"
+                          }
+                        },
+                        {
+                          "name": "key_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "server_name",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "insecure_skip_verify",
+                          "required": false,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        },
+                        {
+                          "name": "min_version",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "tls_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ca_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "ca_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "key_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "server_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "insecure_skip_verify",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "min_version",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "queue_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "capacity",
+                    "required": false,
+                    "default": 10000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_shards",
+                    "required": false,
+                    "default": 50,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "min_shards",
+                    "required": false,
+                    "default": 1,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_samples_per_send",
+                    "required": false,
+                    "default": 2000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "batch_send_deadline",
+                    "required": false,
+                    "default": "5s",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "min_backoff",
+                    "required": false,
+                    "default": "30ms",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "max_backoff",
+                    "required": false,
+                    "default": "5s",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "retry_on_http_429",
+                    "required": false,
+                    "default": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "sample_age_limit",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "metadata_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "send",
+                    "required": false,
+                    "default": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "send_interval",
+                    "required": false,
+                    "default": "1m0s",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "max_samples_per_send",
+                    "required": false,
+                    "default": 2000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "write_relabel_config",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "source_labels",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "separator",
+                    "required": false,
+                    "default": ";",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "regex",
+                    "required": false,
+                    "type": {
+                      "kind": "raw",
+                      "goType": "relabel.Regexp"
+                    }
+                  },
+                  {
+                    "name": "modulus",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "target_label",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "replacement",
+                    "required": false,
+                    "default": "$1",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "action",
+                    "required": false,
+                    "default": "replace",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sigv4",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "region",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "access_key",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "secret_key",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "profile",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "role_arn",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "azuread",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "cloud",
+                    "required": false,
+                    "default": "AzurePublic",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "managed_identity",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "client_id",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "oauth",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "client_id",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "client_secret",
+                          "required": true,
+                          "type": {
+                            "kind": "secret"
+                          }
+                        },
+                        {
+                          "name": "tenant_id",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "sdk",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "tenant_id",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "wal",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "truncate_frequency",
+              "required": false,
+              "default": "2h0m0s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "min_keepalive_time",
+              "required": false,
+              "default": "5m0s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_keepalive_time",
+              "required": false,
+              "default": "8h0m0s",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "receiver",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "prometheus.Appendable",
+          "goType": "storage.Appendable"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "prometheus.exporter.static",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/static",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "text",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

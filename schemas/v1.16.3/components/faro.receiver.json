@@ -1,0 +1,252 @@
+{
+  "name": "faro.receiver",
+  "importPath": "github.com/grafana/alloy/internal/component/faro/receiver",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "extra_log_labels",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "log_format",
+        "required": false,
+        "default": "logfmt",
+        "type": {
+          "kind": "string"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "server",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "listen_address",
+              "required": false,
+              "default": "127.0.0.1",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "listen_port",
+              "required": false,
+              "default": 12347,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "cors_allowed_origins",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "api_key",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "max_allowed_payload_size",
+              "required": false,
+              "default": 5242880,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "include_metadata",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "rate_limiting",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": false,
+                    "default": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "strategy",
+                    "required": false,
+                    "default": "global",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "rate",
+                    "required": false,
+                    "default": 50,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "burst_size",
+                    "required": false,
+                    "default": 100,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "sourcemaps",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "download",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "download_from_origins",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "download_timeout",
+              "required": false,
+              "default": "1s",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "cache",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ttl",
+                    "required": false,
+                    "default": "2562047h47m16.854775807s",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "error_cleanup_interval",
+                    "required": false,
+                    "default": "1h0m0s",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "cleanup_check_interval",
+                    "required": false,
+                    "default": "30s",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "location",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "path",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "minified_path_prefix",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "loki.LogsReceiver",
+                  "goType": "loki.LogsReceiver"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

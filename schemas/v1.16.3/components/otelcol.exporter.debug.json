@@ -1,0 +1,91 @@
+{
+  "name": "otelcol.exporter.debug",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/debug",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "verbosity",
+        "required": false,
+        "default": "basic",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "sampling_initial",
+        "required": false,
+        "default": 2,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "sampling_thereafter",
+        "required": false,
+        "default": 1,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "use_internal_logger",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "output_paths",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

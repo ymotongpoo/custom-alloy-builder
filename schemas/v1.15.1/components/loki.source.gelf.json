@@ -1,0 +1,49 @@
+{
+  "name": "loki.source.gelf",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/source/gelf",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "listen_address",
+        "required": false,
+        "default": "0.0.0.0:12201",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "use_incoming_timestamp",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "relabel_rules",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "raw",
+            "goType": "relabel.Config"
+          }
+        }
+      },
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "loki.LogsReceiver",
+            "goType": "loki.LogsReceiver"
+          }
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

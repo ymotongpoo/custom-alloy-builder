@@ -1,0 +1,333 @@
+{
+  "name": "otelcol.exporter.awss3",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/awss3",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "timeout",
+        "required": false,
+        "default": "5s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "sending_queue",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "num_consumers",
+              "required": false,
+              "default": 10,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "queue_size",
+              "required": false,
+              "default": 1000,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "block_on_overflow",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "sizer",
+              "required": false,
+              "default": "requests",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "wait_for_result",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "storage",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "extension.ExtensionHandler"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "batch",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "flush_timeout",
+                    "required": false,
+                    "default": "200ms",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "min_size",
+                    "required": false,
+                    "default": 2000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_size",
+                    "required": false,
+                    "default": 3000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "sizer",
+                    "required": false,
+                    "default": "items",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "s3_uploader",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "region",
+              "required": false,
+              "default": "us-east-1",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_bucket",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_prefix",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_base_prefix",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_partition_format",
+              "required": false,
+              "default": "year=%Y/month=%m/day=%d/hour=%H/minute=%M",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_partition_timezone",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "role_arn",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "file_prefix",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "endpoint",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_force_path_style",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "disable_ssl",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "compression",
+              "required": false,
+              "default": "none",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "acl",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "storage_class",
+              "required": false,
+              "default": "STANDARD",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "retry_mode",
+              "required": false,
+              "default": "standard",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "retry_max_attempts",
+              "required": false,
+              "default": 3,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "retry_max_backoff",
+              "required": false,
+              "default": "20s",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "marshaler",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "type",
+              "required": false,
+              "default": "otlp_json",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "resource_attrs_to_s3",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "s3_prefix",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_bucket",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,470 @@
+{
+  "name": "otelcol.receiver.filelog",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/filelog",
+  "stability": "public-preview",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "include",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "exclude",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "exclude_older_than",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "poll_interval",
+        "required": false,
+        "default": "200ms",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "max_concurrent_files",
+        "required": false,
+        "default": 1024,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "max_batches",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "start_at",
+        "required": false,
+        "default": "end",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "fingerprint_size",
+        "required": false,
+        "default": 1024,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "max_log_size",
+        "required": false,
+        "default": 1048576,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "encoding",
+        "required": false,
+        "default": "utf-8",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "force_flush_period",
+        "required": false,
+        "default": "500ms",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "delete_after_read",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "include_file_record_number",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "compression",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "acquire_fs_lock",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "preserve_leading_whitespaces",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "preserve_trailing_whitespaces",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "include_file_name",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "include_file_path",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "include_file_name_resolved",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "include_file_path_resolved",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "include_file_owner_name",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "include_file_owner_group_name",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "attributes",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "resource",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "operators",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "map",
+            "value": {
+              "kind": "raw",
+              "goType": "interface {}"
+            }
+          }
+        }
+      },
+      {
+        "name": "storage",
+        "required": false,
+        "type": {
+          "kind": "raw",
+          "goType": "extension.ExtensionHandler"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "ordering_criteria",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "regex",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "top_n",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "group_by",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "sort_by",
+              "required": true,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "sort_type",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "regex_key",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "ascending",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "layout",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "location",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "multiline",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "line_start_pattern",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "line_end_pattern",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "omit_pattern",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "header",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "pattern",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "metadata_operators",
+              "required": true,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "map",
+                  "value": {
+                    "kind": "raw",
+                    "goType": "interface {}"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "retry_on_failure",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "initial_interval",
+              "required": false,
+              "default": "1s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_interval",
+              "required": false,
+              "default": "30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_elapsed_time",
+              "required": false,
+              "default": "5m0s",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

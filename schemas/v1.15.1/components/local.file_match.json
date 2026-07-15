@@ -1,0 +1,47 @@
+{
+  "name": "local.file_match",
+  "importPath": "github.com/grafana/alloy/internal/component/local/file_match",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "path_targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      },
+      {
+        "name": "sync_period",
+        "required": false,
+        "default": "10s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "ignore_older_than",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}
