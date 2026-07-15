@@ -55,6 +55,7 @@ func NewHandler(webFS fs.FS, options ...Options) http.Handler {
 	mux.HandleFunc("GET /api/v1/builds/{id}", h.getBuild)
 	mux.HandleFunc("GET /api/v1/builds/{id}/logs", h.buildLogs)
 	mux.HandleFunc("GET /api/v1/builds/{id}/artifacts/{name}", h.downloadArtifact)
+	mux.Handle("GET /schemas/", http.StripPrefix("/schemas/", http.FileServerFS(h.schemasFS)))
 	mux.HandleFunc("/", staticHandler(webFS))
 	return mux
 }

@@ -140,7 +140,7 @@
   gap: 8px;
 }
 
-.component-browser input {
+.component-browser > input {
   border: 1px solid #9ca3af;
   border-radius: 6px;
   box-sizing: border-box;

@@ -1,6 +1,8 @@
 .PHONY: frontend-build backend-build test lint
 
 frontend-build:
+	rm -rf frontend/public/schemas
+	cp -R schemas frontend/public/schemas
 	cd frontend && npm ci && npm run build
 	rm -rf backend/internal/webui/dist
 	cp -R frontend/dist backend/internal/webui/dist
