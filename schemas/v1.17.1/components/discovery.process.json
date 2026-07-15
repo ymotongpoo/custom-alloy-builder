@@ -1,0 +1,99 @@
+{
+  "name": "discovery.process",
+  "importPath": "github.com/grafana/alloy/internal/component/discovery/process",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "join",
+        "required": false,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      },
+      {
+        "name": "refresh_interval",
+        "required": false,
+        "default": "1m0s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "discover_config",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "cwd",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "exe",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "commandline",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "username",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "uid",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "container_id",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "cgroup_path",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "otelcol.auth.bearer",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/bearer",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "scheme",
+        "required": false,
+        "default": "Bearer",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "token",
+        "required": true,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "header",
+        "required": false,
+        "default": "Authorization",
+        "type": {
+          "kind": "string"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "handler",
+        "required": true,
+        "type": {
+          "kind": "raw",
+          "goType": "auth.Handler"
+        }
+      }
+    ]
+  }
+}

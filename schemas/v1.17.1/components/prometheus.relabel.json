@@ -1,0 +1,128 @@
+{
+  "name": "prometheus.relabel",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/relabel",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "prometheus.Appendable",
+            "goType": "storage.Appendable"
+          }
+        }
+      },
+      {
+        "name": "max_cache_size",
+        "required": false,
+        "default": 100000,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "cache_ttl",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "rule",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "source_labels",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "separator",
+              "required": false,
+              "default": ";",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "regex",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "relabel.Regexp"
+              }
+            },
+            {
+              "name": "modulus",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "target_label",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "replacement",
+              "required": false,
+              "default": "$1",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "action",
+              "required": false,
+              "default": "replace",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "receiver",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "prometheus.Appendable",
+          "goType": "storage.Appendable"
+        }
+      },
+      {
+        "name": "rules",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "raw",
+            "goType": "relabel.Config"
+          }
+        }
+      }
+    ]
+  }
+}

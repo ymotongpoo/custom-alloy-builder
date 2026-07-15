@@ -1,0 +1,45 @@
+{
+  "name": "prometheus.exporter.apache",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/apache",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "scrape_uri",
+        "required": false,
+        "default": "http://localhost/server-status?auto",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "host_override",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "insecure",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

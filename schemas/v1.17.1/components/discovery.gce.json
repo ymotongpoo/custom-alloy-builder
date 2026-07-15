@@ -1,0 +1,68 @@
+{
+  "name": "discovery.gce",
+  "importPath": "github.com/grafana/alloy/internal/component/discovery/gce",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "project",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "zone",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "filter",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "refresh_interval",
+        "required": false,
+        "default": "1m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "port",
+        "required": false,
+        "default": 80,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "tag_separator",
+        "required": false,
+        "default": ",",
+        "type": {
+          "kind": "string"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

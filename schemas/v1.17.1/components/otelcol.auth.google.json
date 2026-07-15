@@ -1,0 +1,87 @@
+{
+  "name": "otelcol.auth.google",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/google",
+  "stability": "public-preview",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "project",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "quota_project",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "token_type",
+        "required": false,
+        "default": "access_token",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "audience",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "scopes",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "handler",
+        "required": true,
+        "type": {
+          "kind": "raw",
+          "goType": "auth.Handler"
+        }
+      }
+    ]
+  }
+}

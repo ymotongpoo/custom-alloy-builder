@@ -1,0 +1,370 @@
+{
+  "name": "otelcol.processor.k8sattributes",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/k8sattributes",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "auth_type",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "passthrough",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "wait_for_metadata",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "wait_for_metadata_timeout",
+        "required": false,
+        "default": "10s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "extract",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "metadata",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "otel_annotations",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "deployment_name_from_replicaset",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "annotation",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "tag_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_regex",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "from",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "label",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "tag_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_regex",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "from",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "filter",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "node",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "namespace",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "field",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "key",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "value",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "op",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "label",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "key",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "value",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "op",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "pod_association",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "blocks": [
+            {
+              "name": "source",
+              "required": true,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "from",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "exclude",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "pod",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "name",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

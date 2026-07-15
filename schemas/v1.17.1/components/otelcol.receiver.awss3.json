@@ -1,0 +1,185 @@
+{
+  "name": "otelcol.receiver.awss3",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/awss3",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "start_time",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "end_time",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "s3downloader",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "region",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_bucket",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_prefix",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_partition_format",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_partition_timezone",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "file_prefix",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "endpoint",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "endpoint_partition_id",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "s3_force_path_style",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "sqs",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "queue_url",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "region",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "endpoint",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "wait_time_seconds",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_number_of_messages",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

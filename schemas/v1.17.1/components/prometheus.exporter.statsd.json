@@ -1,0 +1,155 @@
+{
+  "name": "prometheus.exporter.statsd",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/statsd",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "listen_udp",
+        "required": false,
+        "default": ":9125",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "listen_tcp",
+        "required": false,
+        "default": ":9125",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "listen_unixgram",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "unix_socket_mode",
+        "required": false,
+        "default": "755",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "mapping_config_path",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "read_buffer",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "cache_size",
+        "required": false,
+        "default": 1000,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "cache_type",
+        "required": false,
+        "default": "lru",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "event_queue_size",
+        "required": false,
+        "default": 10000,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "event_flush_threshold",
+        "required": false,
+        "default": 1000,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "event_flush_interval",
+        "required": false,
+        "default": "200ms",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "parse_dogstatsd_tags",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "parse_influxdb_tags",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "parse_librato_tags",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "parse_signalfx_tags",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "relay_addr",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "relay_packet_length",
+        "required": false,
+        "default": 1400,
+        "type": {
+          "kind": "number"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

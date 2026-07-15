@@ -1,0 +1,483 @@
+{
+  "name": "otelcol.exporter.otlp",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/otlp",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "timeout",
+        "required": false,
+        "default": "5s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "sending_queue",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "num_consumers",
+              "required": false,
+              "default": 10,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "queue_size",
+              "required": false,
+              "default": 1000,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "block_on_overflow",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "sizer",
+              "required": false,
+              "default": "requests",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "wait_for_result",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "storage",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "extension.ExtensionHandler"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "batch",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "flush_timeout",
+                    "required": false,
+                    "default": "200ms",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "min_size",
+                    "required": false,
+                    "default": 2000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_size",
+                    "required": false,
+                    "default": 3000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "sizer",
+                    "required": false,
+                    "default": "items",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "retry_on_failure",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "initial_interval",
+              "required": false,
+              "default": "5s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "randomization_factor",
+              "required": false,
+              "default": 0.5,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "multiplier",
+              "required": false,
+              "default": 1.5,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_interval",
+              "required": false,
+              "default": "30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_elapsed_time",
+              "required": false,
+              "default": "5m0s",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "client",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "endpoint",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "compression",
+              "required": false,
+              "default": "gzip",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "read_buffer_size",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "write_buffer_size",
+              "required": false,
+              "default": 524288,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "wait_for_ready",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "headers",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "balancer_name",
+              "required": false,
+              "default": "round_robin",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "authority",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "auth",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "auth.Handler"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "tls",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ca_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "ca_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "key_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "min_version",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "max_version",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "reload_interval",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "cipher_suites",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "include_system_ca_certs_pool",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "curve_preferences",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "insecure",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "insecure_skip_verify",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "server_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "tpm",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": false,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        },
+                        {
+                          "name": "path",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "owner_auth",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "auth",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "keepalive",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ping_wait",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "ping_response_timeout",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "ping_without_stream",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

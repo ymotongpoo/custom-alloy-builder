@@ -1,0 +1,245 @@
+{
+  "name": "otelcol.receiver.cloudflare",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/cloudflare",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "endpoint",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "secret",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "timestamp_field",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "timestamp_format",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "separator",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "attributes",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "tls",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ca_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "ca_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "key_pem",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "key_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "min_version",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "max_version",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "reload_interval",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "cipher_suites",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "include_system_ca_certs_pool",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "curve_preferences",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "client_ca_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "tpm",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "path",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "owner_auth",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "auth",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

@@ -1,0 +1,599 @@
+{
+  "name": "otelcol.exporter.datadog",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/datadog",
+  "stability": "undefined",
+  "community": true,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "hostname_detection_timeout",
+        "required": false,
+        "default": "25s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "only_metadata",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "hostname",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "client",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "read_buffer_size",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "write_buffer_size",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "timeout",
+              "required": false,
+              "default": "15s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_idle_conns",
+              "required": false,
+              "default": 100,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_idle_conns_per_host",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_conns_per_host",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "idle_conn_timeout",
+              "required": false,
+              "default": "1m30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "disable_keep_alives",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "insecure_skip_verify",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "sending_queue",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "num_consumers",
+              "required": false,
+              "default": 10,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "queue_size",
+              "required": false,
+              "default": 1000,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "block_on_overflow",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "sizer",
+              "required": false,
+              "default": "requests",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "wait_for_result",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "storage",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "extension.ExtensionHandler"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "batch",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "flush_timeout",
+                    "required": false,
+                    "default": "200ms",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "min_size",
+                    "required": false,
+                    "default": 2000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_size",
+                    "required": false,
+                    "default": 3000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "sizer",
+                    "required": false,
+                    "default": "items",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "retry_on_failure",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "initial_interval",
+              "required": false,
+              "default": "5s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "randomization_factor",
+              "required": false,
+              "default": 0.5,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "multiplier",
+              "required": false,
+              "default": 1.5,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_interval",
+              "required": false,
+              "default": "30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_elapsed_time",
+              "required": false,
+              "default": "5m0s",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "api",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "api_key",
+              "required": true,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "site",
+              "required": false,
+              "default": "datadoghq.com",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "fail_on_invalid_key",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "traces",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "endpoint",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "ignore_resources",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "span_name_remappings",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "span_name_as_resource_name",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "compute_stats_by_span_kind",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "compute_top_level_by_span_kind",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "peer_tags_aggregation",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "peer_tags",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "trace_buffer",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "delta_ttl",
+              "required": false,
+              "default": 3600,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "endpoint",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "exporter",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "resource_attributes_as_tags",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "instrumentation_scope_metadata_as_tags",
+                    "required": false,
+                    "default": true,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "histograms",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "mode",
+                    "required": false,
+                    "default": "distributions",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "send_aggregation_metrics",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sums",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "cumulative_monotonic_mode",
+                    "required": false,
+                    "default": "to_delta",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "initial_cumulative_monotonic_value",
+                    "required": false,
+                    "default": "auto",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "summaries",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "mode",
+                    "required": false,
+                    "default": "gauges",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "logs",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "endpoint",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "use_compression",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "compression_level",
+              "required": false,
+              "default": 6,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "batch_wait",
+              "required": false,
+              "default": 5,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "host_metadata",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "hostname_source",
+              "required": false,
+              "default": "config_or_system",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "tags",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

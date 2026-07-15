@@ -1,0 +1,319 @@
+{
+  "name": "loki.source.kafka",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/source/kafka",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "brokers",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "topics",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "group_id",
+        "required": false,
+        "default": "loki.source.kafka",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "assignor",
+        "required": false,
+        "default": "range",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "version",
+        "required": false,
+        "default": "2.2.1",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "use_incoming_timestamp",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "labels",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "loki.LogsReceiver",
+            "goType": "loki.LogsReceiver"
+          }
+        }
+      },
+      {
+        "name": "relabel_rules",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "raw",
+            "goType": "relabel.Config"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "authentication",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "type",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "tls_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ca_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "ca_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "key_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "server_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "insecure_skip_verify",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "min_version",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "sasl_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "mechanism",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "user",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "password",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "use_tls",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "tls_config",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "ca_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "ca_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "cert_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "cert_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "key_pem",
+                          "required": false,
+                          "type": {
+                            "kind": "secret"
+                          }
+                        },
+                        {
+                          "name": "key_file",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "server_name",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "insecure_skip_verify",
+                          "required": false,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        },
+                        {
+                          "name": "min_version",
+                          "required": false,
+                          "type": {
+                            "kind": "number"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "oauth_config",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "token_provider",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "scopes",
+                          "required": true,
+                          "type": {
+                            "kind": "list",
+                            "elem": {
+                              "kind": "string"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

@@ -1,0 +1,78 @@
+{
+  "name": "prometheus.enrich",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/enrich",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      },
+      {
+        "name": "target_to_metric_match",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "target_match_label",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "metrics_match_label",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "labels_to_copy",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "capsule",
+            "capsule": "prometheus.Appendable",
+            "goType": "storage.Appendable"
+          }
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "receiver",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "prometheus.Appendable",
+          "goType": "storage.Appendable"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "name": "otelcol.auth.basic",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/basic",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "username",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "password",
+        "required": false,
+        "type": {
+          "kind": "secret"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "client_auth",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "username",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "username_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "password",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "password_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "htpasswd",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "inline",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "handler",
+        "required": true,
+        "type": {
+          "kind": "raw",
+          "goType": "auth.Handler"
+        }
+      }
+    ]
+  }
+}

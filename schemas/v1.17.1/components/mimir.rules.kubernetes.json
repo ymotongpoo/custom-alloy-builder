@@ -1,0 +1,598 @@
+{
+  "name": "mimir.rules.kubernetes",
+  "importPath": "github.com/grafana/alloy/internal/component/mimir/rules/kubernetes",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "address",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "tenant_id",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "use_legacy_routes",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "prometheus_http_prefix",
+        "required": false,
+        "default": "/prometheus",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "bearer_token",
+        "required": false,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "bearer_token_file",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "proxy_url",
+        "required": false,
+        "type": {
+          "kind": "raw",
+          "goType": "config.URL"
+        }
+      },
+      {
+        "name": "no_proxy",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "proxy_from_environment",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "proxy_connect_header",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "list",
+            "elem": {
+              "kind": "secret"
+            }
+          }
+        }
+      },
+      {
+        "name": "follow_redirects",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "enable_http2",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "http_headers",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "list",
+            "elem": {
+              "kind": "secret"
+            }
+          }
+        }
+      },
+      {
+        "name": "sync_interval",
+        "required": false,
+        "default": "5m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "mimir_namespace_prefix",
+        "required": false,
+        "default": "alloy",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "mimir_namespace_separator",
+        "required": false,
+        "default": "/",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "external_labels",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "basic_auth",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "username",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "password",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "password_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "authorization",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "type",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "credentials",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "credentials_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "oauth2",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "client_id",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "client_secret",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "client_secret_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "scopes",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "token_url",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "endpoint_params",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "proxy_url",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "config.URL"
+              }
+            },
+            {
+              "name": "no_proxy",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "proxy_from_environment",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "proxy_connect_header",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "list",
+                  "elem": {
+                    "kind": "secret"
+                  }
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "tls_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ca_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "ca_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "key_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "server_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "insecure_skip_verify",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "min_version",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "tls_config",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ca_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "ca_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "key_pem",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "key_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "server_name",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "insecure_skip_verify",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "min_version",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "extra_query_matchers",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "matcher",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "name",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "value",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "value_from_label",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "match_type",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "rule_selector",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "match_labels",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "match_expression",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "key",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "operator",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "values",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "rule_namespace_selector",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "match_labels",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "match_expression",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "key",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "operator",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "values",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

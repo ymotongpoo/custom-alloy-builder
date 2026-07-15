@@ -1,0 +1,240 @@
+{
+  "name": "otelcol.receiver.awscloudwatch",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/awscloudwatch",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "region",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "profile",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "imds_endpoint",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "storage",
+        "required": false,
+        "type": {
+          "kind": "raw",
+          "goType": "extension.ExtensionHandler"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "logs",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "poll_interval",
+              "required": false,
+              "default": "1m0s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_events_per_request",
+              "required": false,
+              "default": 1000,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "start_from",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "groups",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "autodiscover",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "prefix",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "limit",
+                          "required": false,
+                          "default": 50,
+                          "type": {
+                            "kind": "number"
+                          }
+                        }
+                      ],
+                      "blocks": [
+                        {
+                          "name": "streams",
+                          "required": false,
+                          "body": {
+                            "attributes": [
+                              {
+                                "name": "prefixes",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "name": "names",
+                                "required": false,
+                                "type": {
+                                  "kind": "list",
+                                  "elem": {
+                                    "kind": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "named",
+                    "required": false,
+                    "multiple": true,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "group_name",
+                          "required": true,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "prefixes",
+                          "required": false,
+                          "type": {
+                            "kind": "list",
+                            "elem": {
+                              "kind": "string"
+                            }
+                          }
+                        },
+                        {
+                          "name": "names",
+                          "required": false,
+                          "type": {
+                            "kind": "list",
+                            "elem": {
+                              "kind": "string"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

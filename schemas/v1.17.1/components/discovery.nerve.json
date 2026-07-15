@@ -1,0 +1,51 @@
+{
+  "name": "discovery.nerve",
+  "importPath": "github.com/grafana/alloy/internal/component/discovery/nerve",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "servers",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "paths",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "timeout",
+        "required": false,
+        "default": "10s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

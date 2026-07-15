@@ -1,0 +1,89 @@
+{
+  "name": "otelcol.receiver.awsecscontainermetrics",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/awsecscontainermetrics",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "collection_interval",
+        "required": false,
+        "default": "20s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

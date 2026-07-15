@@ -1,0 +1,10 @@
+{
+  "versions": [
+    {
+      "version": "v1.17.1",
+      "goVersion": "1.26.4",
+      "buildImageTag": "v0.1.33",
+      "alwaysIncludePkgs": []
+    }
+  ]
+}

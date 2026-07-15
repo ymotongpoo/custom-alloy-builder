@@ -1,0 +1,268 @@
+{
+  "name": "otelcol.processor.transform",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/transform",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "error_mode",
+        "required": false,
+        "default": "propagate",
+        "type": {
+          "kind": "string"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "statements",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "trace",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "metric",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "log",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "trace_statements",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "context",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "conditions",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "statements",
+              "required": true,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "error_mode",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "metric_statements",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "context",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "conditions",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "statements",
+              "required": true,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "error_mode",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "log_statements",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "context",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "conditions",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "statements",
+              "required": true,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "error_mode",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,3595 @@
+{
+  "name": "otelcol.processor.resourcedetection",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/resourcedetection",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "detectors",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "override",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "timeout",
+        "required": false,
+        "default": "5s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "ec2",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "tags",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "max_attempts",
+              "required": false,
+              "default": 3,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_backoff",
+              "required": false,
+              "default": "20s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "fail_on_missing_metadata",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "tags_from_imds",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.account.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.image.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "ecs",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "aws.ecs.cluster.arn",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.ecs.launchtype",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.ecs.task.arn",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.ecs.task.family",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.ecs.task.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.ecs.task.revision",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.log.group.arns",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.log.group.names",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.log.stream.arns",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.log.stream.names",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.account.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "eks",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "node_from_env_var",
+              "required": false,
+              "default": "K8S_NODE_NAME",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.account.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "k8s.cluster.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "elasticbeanstalk",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "deployment.environment",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "service.instance.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "service.version",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "lambda",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "aws.log.group.names",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "aws.log.stream.names",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "faas.instance",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "faas.max_memory",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "faas.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "faas.version",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "akamai",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "azure",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "tags",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "azure.resourcegroup.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "azure.vm.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "azure.vm.scaleset.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "azure.vm.size",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.account.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "aks",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "k8s.cluster.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "consul",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "address",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "datacenter",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "token",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "namespace",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "meta",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "docker",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "os.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "digitalocean",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "gcp",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.account.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "faas.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "faas.instance",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "faas.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "faas.version",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "gcp.cloud_run.job.execution",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "gcp.cloud_run.job.task_index",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "gcp.gce.instance.hostname",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "gcp.gce.instance.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "gcp.gce.instance.group_manager.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "gcp.gce.instance.group_manager.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "gcp.gce.instance.group_manager.zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "k8s.cluster.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "heroku",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "heroku.app.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "heroku.dyno.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "heroku.release.commit",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "heroku.release.creation_timestamp",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "service.instance.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "service.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "service.version",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "hetzner",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "system",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "hostname_sources",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "host.arch",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.cpu.cache.l2.size",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.cpu.family",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.cpu.model.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.cpu.model.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.cpu.stepping",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.cpu.vendor.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.interface",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.ip",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.mac",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "os.build.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "os.description",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "os.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "os.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "os.version",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "openshift",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "address",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "token",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "tls",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ca_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "ca_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "key_file",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "min_version",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "max_version",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "reload_interval",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "cipher_suites",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "include_system_ca_certs_pool",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "curve_preferences",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "insecure",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "insecure_skip_verify",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "server_name",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ],
+                "blocks": [
+                  {
+                    "name": "tpm",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": false,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        },
+                        {
+                          "name": "path",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "owner_auth",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        },
+                        {
+                          "name": "auth",
+                          "required": false,
+                          "type": {
+                            "kind": "string"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "k8s.cluster.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "kubernetes_node",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "auth_type",
+              "required": false,
+              "default": "none",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "context",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "node_from_env_var",
+              "required": false,
+              "default": "K8S_NODE_NAME",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "k8s.node.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "k8s.node.uid",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "kubeadm",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "auth_type",
+              "required": false,
+              "default": "none",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "context",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "k8s.cluster.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "k8s.cluster.uid",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "dynatrace",
+        "required": false,
+        "body": {}
+      },
+      {
+        "name": "nova",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "fail_on_missing_metadata",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "labels",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "oraclecloud",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "k8s.cluster.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "oracle_cloud.realm",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "scaleway",
+        "required": false,
+        "body": {
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.account.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.image.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.image.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "upcloud",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "fail_on_missing_metadata",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "vultr",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "fail_on_missing_metadata",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "tencent_cvm",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "fail_on_missing_metadata",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.account.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.image.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "alibaba_ecs",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "fail_on_missing_metadata",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "resource_attributes",
+              "required": false,
+              "body": {
+                "blocks": [
+                  {
+                    "name": "cloud.account.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.availability_zone",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.platform",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.provider",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "cloud.region",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.image.id",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.name",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "name": "host.type",
+                    "required": false,
+                    "body": {
+                      "attributes": [
+                        {
+                          "name": "enabled",
+                          "required": true,
+                          "type": {
+                            "kind": "bool"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

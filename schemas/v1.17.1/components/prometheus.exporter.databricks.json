@@ -1,0 +1,106 @@
+{
+  "name": "prometheus.exporter.databricks",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/databricks",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "server_hostname",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "warehouse_http_path",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "client_id",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "client_secret",
+        "required": true,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "query_timeout",
+        "required": false,
+        "default": "5m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "billing_lookback",
+        "required": false,
+        "default": "24h0m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "jobs_lookback",
+        "required": false,
+        "default": "3h0m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "pipelines_lookback",
+        "required": false,
+        "default": "3h0m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "queries_lookback",
+        "required": false,
+        "default": "2h0m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "sla_threshold_seconds",
+        "required": false,
+        "default": 3600,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "collect_task_retries",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

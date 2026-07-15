@@ -1,0 +1,374 @@
+{
+  "name": "otelcol.connector.spanmetrics",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/connector/spanmetrics",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "exclude_dimensions",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "dimensions_cache_size",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "resource_metrics_cache_size",
+        "required": false,
+        "default": 1000,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "resource_metrics_key_attributes",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "aggregation_cardinality_limit",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "aggregation_temporality",
+        "required": false,
+        "default": "CUMULATIVE",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "metrics_flush_interval",
+        "required": false,
+        "default": "1m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "metrics_expiration",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "metric_timestamp_cache_size",
+        "required": false,
+        "default": 1000,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "namespace",
+        "required": false,
+        "default": "traces.span.metrics",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "include_instrumentation_scope",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "dimension",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "name",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "default",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "calls_dimension",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "name",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "default",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "histogram",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "unit",
+              "required": false,
+              "default": "ms",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "dimension",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "name",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "default",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "exponential",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "max_size",
+                    "required": false,
+                    "default": 160,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "explicit",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "buckets",
+                    "required": false,
+                    "type": {
+                      "kind": "list",
+                      "elem": {
+                        "kind": "duration"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "exemplars",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "max_per_data_point",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "events",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "dimension",
+              "required": false,
+              "multiple": true,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "name",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "default",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "output",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "metrics",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.metrics",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "logs",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.logs",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            },
+            {
+              "name": "traces",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "capsule",
+                  "capsule": "otelcol.Consumer.traces",
+                  "goType": "otelcol.Consumer"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

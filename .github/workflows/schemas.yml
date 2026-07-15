@@ -1,0 +1,26 @@
+name: Schema reproducibility
+
+on:
+  pull_request:
+    paths:
+      - 'generator/**'
+      - 'schemas/**'
+      - '.github/workflows/schemas.yml'
+  workflow_dispatch:
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      matrix:
+        version: [v1.17.1]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Regenerate schemas
+        run: ./generator/run-generator.sh ${{ matrix.version }}
+      - name: Verify committed schemas are reproducible
+        run: git diff --exit-code schemas/

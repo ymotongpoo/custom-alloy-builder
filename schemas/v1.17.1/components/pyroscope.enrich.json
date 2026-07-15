@@ -1,0 +1,66 @@
+{
+  "name": "pyroscope.enrich",
+  "importPath": "github.com/grafana/alloy/internal/component/pyroscope/enrich",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      },
+      {
+        "name": "target_match_label",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "profiles_match_label",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "labels_to_copy",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "raw",
+            "goType": "pyroscope.Appendable"
+          }
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "receiver",
+        "required": true,
+        "type": {
+          "kind": "raw",
+          "goType": "pyroscope.Appendable"
+        }
+      }
+    ]
+  }
+}

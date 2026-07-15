@@ -1,0 +1,205 @@
+{
+  "name": "discovery.uyuni",
+  "importPath": "github.com/grafana/alloy/internal/component/discovery/uyuni",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "server",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "username",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "password",
+        "required": true,
+        "type": {
+          "kind": "secret"
+        }
+      },
+      {
+        "name": "entitlement",
+        "required": false,
+        "default": "monitoring_entitled",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "separator",
+        "required": false,
+        "default": ",",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "refresh_interval",
+        "required": false,
+        "default": "1m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "proxy_url",
+        "required": false,
+        "type": {
+          "kind": "raw",
+          "goType": "config.URL"
+        }
+      },
+      {
+        "name": "no_proxy",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "proxy_from_environment",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "proxy_connect_header",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "list",
+            "elem": {
+              "kind": "secret"
+            }
+          }
+        }
+      },
+      {
+        "name": "follow_redirects",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "enable_http2",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "http_headers",
+        "required": false,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "list",
+            "elem": {
+              "kind": "secret"
+            }
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "tls_config",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "ca_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "ca_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_pem",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "cert_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "key_pem",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "key_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "server_name",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "insecure_skip_verify",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "min_version",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

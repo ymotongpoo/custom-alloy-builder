@@ -1,0 +1,117 @@
+{
+  "name": "prometheus.exporter.process",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/process",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "procfs_path",
+        "required": false,
+        "default": "/proc",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "track_children",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "track_threads",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "gather_smaps",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "recheck_on_scrape",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "remove_empty_groups",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "matcher",
+        "required": false,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "name",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "comm",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "exe",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "cmdline",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

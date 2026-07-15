@@ -1,0 +1,333 @@
+{
+  "name": "pyroscope.ebpf",
+  "importPath": "github.com/grafana/alloy/internal/component/pyroscope/ebpf",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "forward_to",
+        "required": true,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "raw",
+            "goType": "pyroscope.Appendable"
+          }
+        }
+      },
+      {
+        "name": "targets",
+        "required": false,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      },
+      {
+        "name": "collect_interval",
+        "required": false,
+        "default": "15s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "sample_rate",
+        "required": false,
+        "default": 19,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "python_enabled",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "perl_enabled",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "php_enabled",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "hotspot_enabled",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "ruby_enabled",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "v8_enabled",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "dotnet_enabled",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "go_enabled",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "demangle",
+        "required": false,
+        "default": "none",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "off_cpu_threshold",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "load_probe",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "u_probe_links",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      },
+      {
+        "name": "verbose_mode",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "lazy_mode",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "pid_cache_size",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "build_id_cache_size",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "same_file_cache_size",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "cache_rounds",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "go_table_fallback",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "symbols_map_size",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "pid_map_size",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "collect_user_profile",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "collect_kernel_profile",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "container_id_cache_size",
+        "required": false,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "targets_only",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "symb_cache_path",
+        "required": false,
+        "default": "/tmp/symb-cache",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "symb_cache_size",
+        "required": false,
+        "default": 2048,
+        "type": {
+          "kind": "number"
+        }
+      },
+      {
+        "name": "reporter_unsymbolized_stubs",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "pid_label",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "comm",
+        "required": false,
+        "default": "none",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "kernel_frames",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "debug_info",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "on_target_symbolization",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "upload",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "cache_size",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "strip_text_section",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "queue_size",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "worker_num",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {}
+}

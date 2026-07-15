@@ -1,0 +1,178 @@
+{
+  "name": "prometheus.exporter.elasticsearch",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/elasticsearch",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "address",
+        "required": false,
+        "default": "http://localhost:9200",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "timeout",
+        "required": false,
+        "default": "5s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "all",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "node",
+        "required": false,
+        "default": "_local",
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "indices",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "indices_settings",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "cluster_settings",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "shards",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "aliases",
+        "required": false,
+        "default": true,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "snapshots",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "clusterinfo_interval",
+        "required": false,
+        "default": "5m0s",
+        "type": {
+          "kind": "duration"
+        }
+      },
+      {
+        "name": "ca",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "client_private_key",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "client_cert",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "ssl_skip_verify",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "data_stream",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      },
+      {
+        "name": "slm",
+        "required": false,
+        "type": {
+          "kind": "bool"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "basic_auth",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "username",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "password",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "password_file",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

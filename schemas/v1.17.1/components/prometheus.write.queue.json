@@ -1,0 +1,322 @@
+{
+  "name": "prometheus.write.queue",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/write/queue",
+  "stability": "experimental",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "ttl",
+        "required": false,
+        "default": "2h0m0s",
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "persistence",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "max_signals_to_batch",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "batch_interval",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "endpoint",
+        "required": true,
+        "multiple": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "url",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "bearer_token",
+              "required": false,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "write_timeout",
+              "required": false,
+              "default": "30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "retry_backoff",
+              "required": false,
+              "default": "1s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_retry_attempts",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "batch_count",
+              "required": false,
+              "default": 1000,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "flush_interval",
+              "required": false,
+              "default": "1s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "external_labels",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "enable_round_robin",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "headers",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "secret"
+                }
+              }
+            },
+            {
+              "name": "proxy_url",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "proxy_from_environment",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "proxy_connect_headers",
+              "required": false,
+              "type": {
+                "kind": "map",
+                "value": {
+                  "kind": "secret"
+                }
+              }
+            },
+            {
+              "name": "protobuf_message",
+              "required": false,
+              "default": "prometheus.WriteRequest",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "metadata_cache_enabled",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "metadata_cache_size",
+              "required": false,
+              "default": 1000,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "basic_auth",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "username",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "password",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "parallelism",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "drift_scale_up",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "drift_scale_down",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "max_connections",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "min_connections",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "network_flush_interval",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "desired_connections_lookback",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "desired_check_interval",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "allowed_network_error_fraction",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "tls_config",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "ca_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "cert_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "key_pem",
+                    "required": false,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "insecure_skip_verify",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "labels": [
+            {
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "receiver",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "prometheus.Appendable",
+          "goType": "storage.Appendable"
+        }
+      }
+    ]
+  }
+}

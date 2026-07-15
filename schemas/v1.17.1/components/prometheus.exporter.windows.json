@@ -1,0 +1,690 @@
+{
+  "name": "prometheus.exporter.windows",
+  "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/windows",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "enabled_collectors",
+        "required": false,
+        "type": {
+          "kind": "list",
+          "elem": {
+            "kind": "string"
+          }
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "dfsr",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "sources_enabled",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "exchange",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "iis",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "app_blacklist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "app_whitelist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "site_blacklist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "site_whitelist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "app_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "app_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "site_exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "site_include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "logical_disk",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "blacklist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "whitelist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "msmq",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "where_clause",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "mssql",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_classes",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "network",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "blacklist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "whitelist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "physical_disk",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "printer",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "process",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "blacklist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "whitelist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "enable_iis_worker_process",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "counter_version",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "scheduled_task",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "service",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "use_api",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "where_clause",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "enable_v2_collector",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "smb",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "smb_client",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "smtp",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "blacklist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "whitelist",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "text_file",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "text_file_directory",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "directories",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "textfile",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "text_file_directory",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "directories",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "tcp",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "update",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "online",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "scrape_interval",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "filetime",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "file_patterns",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "performancecounter",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "objects",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "mscluster",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "netframework",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "dns",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "net",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled_list",
+              "required": false,
+              "type": {
+                "kind": "list",
+                "elem": {
+                  "kind": "string"
+                }
+              }
+            },
+            {
+              "name": "exclude",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "include",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "targets",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "discovery.Targets",
+          "goType": "[]discovery.Target"
+        }
+      }
+    ]
+  }
+}

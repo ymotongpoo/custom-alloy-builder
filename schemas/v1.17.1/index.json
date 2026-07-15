@@ -1,0 +1,1636 @@
+{
+  "version": "v1.17.1",
+  "components": [
+    {
+      "name": "beyla.ebpf",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/beyla/ebpf",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "database_observability.mysql",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/database_observability/mysql",
+      "inputs": [
+        "discovery.Targets",
+        "loki.LogsReceiver"
+      ],
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "database_observability.postgres",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/database_observability/postgres",
+      "inputs": [
+        "discovery.Targets",
+        "loki.LogsReceiver"
+      ],
+      "outputs": [
+        "discovery.Targets",
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "discovery.azure",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/azure",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.consul",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/consul",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.consulagent",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/consulagent",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.digitalocean",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/digitalocean",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.dns",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/dns",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.docker",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/docker",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.dockerswarm",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/dockerswarm",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.ec2",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/aws",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.eureka",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/eureka",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.file",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/file",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.gce",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/gce",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.hetzner",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/hetzner",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.http",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/http",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.ionos",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/ionos",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.kubelet",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/kubelet",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.kubernetes",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/kubernetes",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.kuma",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/kuma",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.lightsail",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/aws",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.linode",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/linode",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.marathon",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/marathon",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.nerve",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/nerve",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.nomad",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/nomad",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.openstack",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/openstack",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.ovhcloud",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/ovhcloud",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.process",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/process",
+      "inputs": [
+        "discovery.Targets"
+      ],
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.puppetdb",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/puppetdb",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.relabel",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/relabel",
+      "inputs": [
+        "discovery.Targets"
+      ],
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.scaleway",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/scaleway",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.serverset",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/serverset",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.triton",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/triton",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "discovery.uyuni",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/discovery/uyuni",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "faro.receiver",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/faro/receiver"
+    },
+    {
+      "name": "local.file",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/local/file"
+    },
+    {
+      "name": "local.file_match",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/local/file_match",
+      "inputs": [
+        "discovery.Targets"
+      ],
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "loki.echo",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/echo",
+      "outputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.enrich",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/enrich",
+      "inputs": [
+        "discovery.Targets",
+        "loki.LogsReceiver"
+      ],
+      "outputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.process",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/process",
+      "inputs": [
+        "loki.LogsReceiver"
+      ],
+      "outputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.relabel",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/relabel",
+      "inputs": [
+        "loki.LogsReceiver"
+      ],
+      "outputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.rules.kubernetes",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/rules/kubernetes"
+    },
+    {
+      "name": "loki.secretfilter",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/secretfilter",
+      "inputs": [
+        "loki.LogsReceiver"
+      ],
+      "outputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.api",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/api",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.awsfirehose",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/aws_firehose",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.azure_event_hubs",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/azure_event_hubs",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.cloudflare",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/cloudflare",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.docker",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/docker",
+      "inputs": [
+        "discovery.Targets",
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.file",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/file",
+      "inputs": [
+        "discovery.Targets",
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.gcplog",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/gcplog",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.gelf",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/gelf",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.heroku",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/heroku",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.journal",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/journal",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.kafka",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/kafka",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.kubernetes",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/kubernetes",
+      "inputs": [
+        "discovery.Targets",
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.kubernetes_events",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/kubernetes_events",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.podlogs",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/podlogs",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.syslog",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/syslog",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.source.windowsevent",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/source/windowsevent",
+      "inputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "loki.write",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/loki/write",
+      "outputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "mimir.alerts.kubernetes",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/mimir/alerts/kubernetes"
+    },
+    {
+      "name": "mimir.rules.kubernetes",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/mimir/rules/kubernetes"
+    },
+    {
+      "name": "otelcol.auth.basic",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/basic"
+    },
+    {
+      "name": "otelcol.auth.bearer",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/bearer"
+    },
+    {
+      "name": "otelcol.auth.google",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/google"
+    },
+    {
+      "name": "otelcol.auth.headers",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/headers"
+    },
+    {
+      "name": "otelcol.auth.oauth2",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/oauth2"
+    },
+    {
+      "name": "otelcol.auth.sigv4",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/auth/sigv4"
+    },
+    {
+      "name": "otelcol.connector.count",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/connector/count",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.connector.host_info",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/connector/host_info",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.connector.servicegraph",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/connector/servicegraph",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.connector.spanlogs",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/connector/spanlogs",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.connector.spanmetrics",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/connector/spanmetrics",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.awss3",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/awss3",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.datadog",
+      "stability": "undefined",
+      "community": true,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/datadog",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.debug",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/debug",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.faro",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/faro",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.file",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/file",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.googlecloud",
+      "stability": "undefined",
+      "community": true,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/googlecloud",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.googlecloudpubsub",
+      "stability": "undefined",
+      "community": true,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/googlecloudpubsub",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.kafka",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/kafka",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.loadbalancing",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/loadbalancing",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.loki",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/loki",
+      "inputs": [
+        "loki.LogsReceiver"
+      ],
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.otlp",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/otlp",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.otlphttp",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/otlphttp",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.prometheus",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/prometheus",
+      "inputs": [
+        "prometheus.Appendable"
+      ],
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.splunkhec",
+      "stability": "undefined",
+      "community": true,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/splunkhec",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.exporter.syslog",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/syslog",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.extension.jaeger_remote_sampling",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/extension/jaeger_remote_sampling"
+    },
+    {
+      "name": "otelcol.processor.attributes",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/attributes",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.batch",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/batch",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.cumulativetodelta",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/cumulativetodelta",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.deltatocumulative",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/deltatocumulative",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.discovery",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/discovery",
+      "inputs": [
+        "discovery.Targets"
+      ],
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.filter",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/filter",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.groupbyattrs",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/groupbyattrs",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.interval",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/interval",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.k8sattributes",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/k8sattributes",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.memory_limiter",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/memorylimiter",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.metric_start_time",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/metricstarttime",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.probabilistic_sampler",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/probabilistic_sampler",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.resourcedetection",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/resourcedetection",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.span",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/span",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.tail_sampling",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/tail_sampling",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.processor.transform",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/processor/transform",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.receiver.awscloudwatch",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/awscloudwatch"
+    },
+    {
+      "name": "otelcol.receiver.awsecscontainermetrics",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/awsecscontainermetrics"
+    },
+    {
+      "name": "otelcol.receiver.awss3",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/awss3"
+    },
+    {
+      "name": "otelcol.receiver.cloudflare",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/cloudflare"
+    },
+    {
+      "name": "otelcol.receiver.datadog",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/datadog"
+    },
+    {
+      "name": "otelcol.receiver.faro",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/faro"
+    },
+    {
+      "name": "otelcol.receiver.file_stats",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/file_stats"
+    },
+    {
+      "name": "otelcol.receiver.filelog",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/filelog"
+    },
+    {
+      "name": "otelcol.receiver.fluentforward",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/fluentforward"
+    },
+    {
+      "name": "otelcol.receiver.googlecloudpubsub",
+      "stability": "undefined",
+      "community": true,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/googlecloudpubsub",
+      "outputs": [
+        "otelcol.Consumer.logs",
+        "otelcol.Consumer.metrics",
+        "otelcol.Consumer.traces"
+      ]
+    },
+    {
+      "name": "otelcol.receiver.influxdb",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/influxdb"
+    },
+    {
+      "name": "otelcol.receiver.jaeger",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/jaeger"
+    },
+    {
+      "name": "otelcol.receiver.kafka",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/kafka"
+    },
+    {
+      "name": "otelcol.receiver.loki",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/loki",
+      "outputs": [
+        "loki.LogsReceiver"
+      ]
+    },
+    {
+      "name": "otelcol.receiver.nginx",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/nginx"
+    },
+    {
+      "name": "otelcol.receiver.otlp",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/otlp"
+    },
+    {
+      "name": "otelcol.receiver.prometheus",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/prometheus",
+      "outputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "otelcol.receiver.solace",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/solace"
+    },
+    {
+      "name": "otelcol.receiver.splunkhec",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/splunkhec"
+    },
+    {
+      "name": "otelcol.receiver.syslog",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/syslog"
+    },
+    {
+      "name": "otelcol.receiver.tcplog",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/tcplog"
+    },
+    {
+      "name": "otelcol.receiver.vcenter",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/vcenter"
+    },
+    {
+      "name": "otelcol.receiver.zipkin",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/receiver/zipkin"
+    },
+    {
+      "name": "otelcol.storage.file",
+      "stability": "public-preview",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/otelcol/storage/file"
+    },
+    {
+      "name": "prometheus.echo",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/echo",
+      "outputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.enrich",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/enrich",
+      "inputs": [
+        "discovery.Targets",
+        "prometheus.Appendable"
+      ],
+      "outputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.apache",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/apache",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.azure",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/azure",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.blackbox",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/blackbox",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.cadvisor",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/cadvisor",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.catchpoint",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/catchpoint",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.cloudwatch",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/cloudwatch",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.consul",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/consul",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.databricks",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/databricks",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.dnsmasq",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/dnsmasq",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.elasticsearch",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/elasticsearch",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.gcp",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/gcp",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.github",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/github",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.kafka",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/kafka",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.memcached",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/memcached",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.mongodb",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/mongodb",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.mssql",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/mssql",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.mysql",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/mysql",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.oracledb",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/oracledb",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.postgres",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/postgres",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.process",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/process",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.redis",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/redis",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.self",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/self",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.snmp",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/snmp",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.snowflake",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/snowflake",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.squid",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/squid",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.static",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/static",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.statsd",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/statsd",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.unix",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/unix",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.exporter.windows",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/exporter/windows",
+      "outputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "prometheus.operator.podmonitors",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/operator/podmonitors",
+      "inputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.operator.probes",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/operator/probes",
+      "inputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.operator.scrapeconfigs",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/operator/scrapeconfigs",
+      "inputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.operator.servicemonitors",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/operator/servicemonitors",
+      "inputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.receive_http",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/receive_http",
+      "inputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.relabel",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/relabel",
+      "inputs": [
+        "prometheus.Appendable"
+      ],
+      "outputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.remote_write",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/remotewrite",
+      "outputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.scrape",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/scrape",
+      "inputs": [
+        "discovery.Targets",
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "prometheus.write.queue",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/prometheus/write/queue",
+      "outputs": [
+        "prometheus.Appendable"
+      ]
+    },
+    {
+      "name": "pyroscope.ebpf",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/pyroscope/ebpf",
+      "inputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "pyroscope.enrich",
+      "stability": "experimental",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/pyroscope/enrich",
+      "inputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "pyroscope.java",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/pyroscope/java",
+      "inputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "pyroscope.receive_http",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/pyroscope/receive_http"
+    },
+    {
+      "name": "pyroscope.relabel",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/pyroscope/relabel"
+    },
+    {
+      "name": "pyroscope.scrape",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/pyroscope/scrape",
+      "inputs": [
+        "discovery.Targets"
+      ]
+    },
+    {
+      "name": "pyroscope.write",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/pyroscope/write/glue"
+    },
+    {
+      "name": "remote.http",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/remote/http"
+    },
+    {
+      "name": "remote.kubernetes.configmap",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/remote/kubernetes/configmap"
+    },
+    {
+      "name": "remote.kubernetes.secret",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/remote/kubernetes/secret"
+    },
+    {
+      "name": "remote.s3",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/remote/s3"
+    },
+    {
+      "name": "remote.vault",
+      "stability": "generally-available",
+      "community": false,
+      "importPath": "github.com/grafana/alloy/internal/component/remote/vault"
+    }
+  ]
+}

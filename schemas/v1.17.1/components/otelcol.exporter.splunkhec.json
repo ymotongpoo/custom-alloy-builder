@@ -1,0 +1,595 @@
+{
+  "name": "otelcol.exporter.splunkhec",
+  "importPath": "github.com/grafana/alloy/internal/component/otelcol/exporter/splunkhec",
+  "stability": "undefined",
+  "community": true,
+  "arguments": {
+    "blocks": [
+      {
+        "name": "client",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "endpoint",
+              "required": true,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "read_buffer_size",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "write_buffer_size",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "timeout",
+              "required": false,
+              "default": "15s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_idle_conns",
+              "required": false,
+              "default": 100,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_idle_conns_per_host",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_conns_per_host",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "idle_conn_timeout",
+              "required": false,
+              "default": "1m30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "disable_keep_alives",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "insecure_skip_verify",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "force_attempt_http2",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "sending_queue",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "num_consumers",
+              "required": false,
+              "default": 10,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "queue_size",
+              "required": false,
+              "default": 1000,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "block_on_overflow",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "sizer",
+              "required": false,
+              "default": "requests",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "wait_for_result",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "storage",
+              "required": false,
+              "type": {
+                "kind": "raw",
+                "goType": "extension.ExtensionHandler"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "batch",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "flush_timeout",
+                    "required": false,
+                    "default": "200ms",
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "min_size",
+                    "required": false,
+                    "default": 2000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_size",
+                    "required": false,
+                    "default": 3000,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "sizer",
+                    "required": false,
+                    "default": "items",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "retry_on_failure",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "initial_interval",
+              "required": false,
+              "default": "5s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "randomization_factor",
+              "required": false,
+              "default": 0.5,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "multiplier",
+              "required": false,
+              "default": 1.5,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_interval",
+              "required": false,
+              "default": "30s",
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_elapsed_time",
+              "required": false,
+              "default": "5m0s",
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "splunk",
+        "required": true,
+        "body": {
+          "attributes": [
+            {
+              "name": "log_data_enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "profiling_data_enabled",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "token",
+              "required": true,
+              "type": {
+                "kind": "secret"
+              }
+            },
+            {
+              "name": "source",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "sourcetype",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "index",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "disable_compression",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "max_content_length_logs",
+              "required": false,
+              "default": 2097152,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_content_length_metrics",
+              "required": false,
+              "default": 2097152,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_content_length_traces",
+              "required": false,
+              "default": 2097152,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "max_event_size",
+              "required": false,
+              "default": 5242880,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "splunk_app_name",
+              "required": false,
+              "default": "Alloy",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "splunk_app_version",
+              "required": false,
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "health_path",
+              "required": false,
+              "default": "/services/collector/health",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "health_check_enabled",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "export_raw",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "use_multi_metric_format",
+              "required": false,
+              "type": {
+                "kind": "bool"
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "name": "batcher",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "flush_timeout",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "min_size",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "max_size",
+                    "required": false,
+                    "type": {
+                      "kind": "number"
+                    }
+                  },
+                  {
+                    "name": "sizer",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "otel_to_hec_fields",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "severity_text",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "severity_number",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "heartbeat",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "interval",
+                    "required": false,
+                    "type": {
+                      "kind": "duration"
+                    }
+                  },
+                  {
+                    "name": "startup",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "telemetry",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "enabled",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "override_metrics_names",
+                    "required": false,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  },
+                  {
+                    "name": "extra_attributes",
+                    "required": false,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "otel_attrs_to_hec_metadata",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "source",
+              "required": false,
+              "default": "com.splunk.source",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "sourcetype",
+              "required": false,
+              "default": "com.splunk.sourcetype",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "index",
+              "required": false,
+              "default": "com.splunk.index",
+              "type": {
+                "kind": "string"
+              }
+            },
+            {
+              "name": "host",
+              "required": false,
+              "default": "host.name",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "debug_metrics",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "disable_high_cardinality_metrics",
+              "required": false,
+              "default": true,
+              "type": {
+                "kind": "bool"
+              }
+            },
+            {
+              "name": "level",
+              "required": false,
+              "default": "detailed",
+              "type": {
+                "kind": "string"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "input",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "otelcol.Consumer",
+          "goType": "otelcol.Consumer"
+        }
+      }
+    ]
+  }
+}

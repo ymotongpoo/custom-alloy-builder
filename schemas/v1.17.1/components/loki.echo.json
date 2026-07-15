@@ -1,0 +1,20 @@
+{
+  "name": "loki.echo",
+  "importPath": "github.com/grafana/alloy/internal/component/loki/echo",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {},
+  "exports": {
+    "attributes": [
+      {
+        "name": "receiver",
+        "required": true,
+        "type": {
+          "kind": "capsule",
+          "capsule": "loki.LogsReceiver",
+          "goType": "loki.LogsReceiver"
+        }
+      }
+    ]
+  }
+}

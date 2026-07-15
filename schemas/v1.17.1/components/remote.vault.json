@@ -1,0 +1,405 @@
+{
+  "name": "remote.vault",
+  "importPath": "github.com/grafana/alloy/internal/component/remote/vault",
+  "stability": "generally-available",
+  "community": false,
+  "arguments": {
+    "attributes": [
+      {
+        "name": "server",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "namespace",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "path",
+        "required": true,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "key",
+        "required": false,
+        "type": {
+          "kind": "string"
+        }
+      },
+      {
+        "name": "reread_frequency",
+        "required": false,
+        "type": {
+          "kind": "duration"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "name": "client_options",
+        "required": false,
+        "body": {
+          "attributes": [
+            {
+              "name": "min_retry_wait",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_retry_wait",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            },
+            {
+              "name": "max_retries",
+              "required": false,
+              "type": {
+                "kind": "number"
+              }
+            },
+            {
+              "name": "timeout",
+              "required": false,
+              "type": {
+                "kind": "duration"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "auth",
+        "required": false,
+        "multiple": true,
+        "enum": true,
+        "body": {
+          "blocks": [
+            {
+              "name": "token",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "token",
+                    "required": true,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "approle",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "role_id",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "secret",
+                    "required": true,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "wrapping_token",
+                    "required": false,
+                    "type": {
+                      "kind": "bool"
+                    }
+                  },
+                  {
+                    "name": "mount_path",
+                    "required": false,
+                    "default": "approle",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "aws",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "type",
+                    "required": true,
+                    "default": "iam",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "region",
+                    "required": false,
+                    "default": "us-east-1",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "role",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "iam_server_id_header",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "ec2_signature_type",
+                    "required": false,
+                    "default": "pkcs7",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "mount_path",
+                    "required": false,
+                    "default": "aws",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "azure",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "role",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "resource_url",
+                    "required": false,
+                    "default": "https://management.azure.com/",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "mount_path",
+                    "required": false,
+                    "default": "azure",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "gcp",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "role",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "type",
+                    "required": true,
+                    "default": "gce",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "iam_service_account",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "mount_path",
+                    "required": false,
+                    "default": "gcp",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "kubernetes",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "role",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "service_account_file",
+                    "required": false,
+                    "default": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "mount_path",
+                    "required": false,
+                    "default": "kubernetes",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "ldap",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "username",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "password",
+                    "required": true,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "mount_path",
+                    "required": false,
+                    "default": "ldap",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "userpass",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "username",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "password",
+                    "required": true,
+                    "type": {
+                      "kind": "secret"
+                    }
+                  },
+                  {
+                    "name": "mount_path",
+                    "required": false,
+                    "default": "userpass",
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "custom",
+              "required": false,
+              "body": {
+                "attributes": [
+                  {
+                    "name": "path",
+                    "required": true,
+                    "type": {
+                      "kind": "string"
+                    }
+                  },
+                  {
+                    "name": "data",
+                    "required": true,
+                    "type": {
+                      "kind": "map",
+                      "value": {
+                        "kind": "secret"
+                      }
+                    }
+                  },
+                  {
+                    "name": "namespace",
+                    "required": false,
+                    "type": {
+                      "kind": "string"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exports": {
+    "attributes": [
+      {
+        "name": "data",
+        "required": true,
+        "type": {
+          "kind": "map",
+          "value": {
+            "kind": "secret"
+          }
+        }
+      }
+    ]
+  }
+}
