@@ -10,12 +10,17 @@ import (
 )
 
 func main() {
-	addr := flag.String("addr", ":8085", "HTTP listen address")
+	addr := flag.String("addr", "127.0.0.1:8085", "HTTP listen address")
+	schemaRoot := flag.String("schema-root", "", "schemas directory")
 	flag.Parse()
 
+	schemasDir, err := api.FindSchemasDir(*schemaRoot)
+	if err != nil {
+		log.Fatalf("schemas directory not found; pass -schema-root: %v", err)
+	}
 	server := &http.Server{
 		Addr:    *addr,
-		Handler: api.NewHandler(webui.FS),
+		Handler: api.NewHandler(webui.FS, api.Options{SchemaRoot: schemasDir}),
 	}
 
 	log.Printf("listening on %s", *addr)

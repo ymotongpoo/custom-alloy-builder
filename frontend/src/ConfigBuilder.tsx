@@ -32,15 +32,19 @@ import type { BuilderDocument, LayoutMap, SchemaRegistry } from './graph/types'
 
 const nodeTypes = { builder: BuilderNode }
 
-export function ConfigBuilder() {
+interface ConfigBuilderProps {
+  onComponentsChange?: (components: string[]) => void
+}
+
+export function ConfigBuilder({ onComponentsChange }: ConfigBuilderProps) {
   return (
     <ReactFlowProvider>
-      <ConfigBuilderInner />
+      <ConfigBuilderInner onComponentsChange={onComponentsChange} />
     </ReactFlowProvider>
   )
 }
 
-function ConfigBuilderInner() {
+function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
   const [schemaIndex, setSchemaIndex] = useState<SchemaIndex | undefined>()
   const [schemaError, setSchemaError] = useState<string | undefined>()
   const [schemas, setSchemas] = useState<Record<string, ComponentSchema>>({})
@@ -59,6 +63,10 @@ function ConfigBuilderInner() {
       .then(setSchemaIndex)
       .catch((error: unknown) => setSchemaError(error instanceof Error ? error.message : String(error)))
   }, [])
+
+  useEffect(() => {
+    onComponentsChange?.(Array.from(new Set(config.components.map((component) => component.type))).sort())
+  }, [config.components, onComponentsChange])
 
   const registry = useMemo(() => buildRegistry(schemas), [schemas])
   const onSourceEndpoint = useCallback((componentId: string, handle: string) => {

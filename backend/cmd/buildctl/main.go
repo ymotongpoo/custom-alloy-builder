@@ -75,6 +75,7 @@ func main() {
 	spec := executor.Spec{
 		Version:       *version,
 		WorkDir:       workDir,
+		CacheRoot:     filepath.Join(*cacheRoot, "build-cache"),
 		GOOS:          *goos,
 		GOARCH:        *goarch,
 		OutputPath:    *output,

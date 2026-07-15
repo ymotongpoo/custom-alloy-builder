@@ -6,7 +6,8 @@ frontend-build:
 	cp -R frontend/dist backend/internal/webui/dist
 
 backend-build:
-	cd backend && go build -o bin/custom-alloy-builder ./cmd/...
+	cd backend && go build -o bin/custom-alloy-builder ./cmd/custom-alloy-builder
+	cd backend && go build -o bin/buildctl ./cmd/buildctl
 
 test:
 	cd frontend && npm test

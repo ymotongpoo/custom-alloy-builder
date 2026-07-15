@@ -1,9 +1,11 @@
 import './App.css'
 import { useState } from 'react'
 import { ConfigBuilder } from './ConfigBuilder'
+import { BinaryBuilder } from './builder/BinaryBuilder'
 
 function App() {
   const [activeTab, setActiveTab] = useState<'config' | 'binary'>('config')
+  const [configComponents, setConfigComponents] = useState<string[]>([])
 
   return (
     <main className="app-shell">
@@ -28,11 +30,9 @@ function App() {
       </header>
 
       {activeTab === 'config' ? (
-        <ConfigBuilder />
+        <ConfigBuilder onComponentsChange={setConfigComponents} />
       ) : (
-        <section className="placeholder-panel" aria-label="Binary Builder">
-          <div>Binary Builder placeholder</div>
-        </section>
+        <BinaryBuilder currentConfigComponents={configComponents} />
       )}
     </main>
   )
