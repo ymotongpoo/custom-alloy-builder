@@ -91,6 +91,7 @@ function ConfigBuilderInner() {
   const edges = useMemo(() => toFlowEdges(config, registry), [config, registry])
   const selected = config.components.find((component) => component.id === selectedId)
   const selectedSchema = selected ? schemas[selected.type] : undefined
+  const issues = useMemo(() => collectIssues(config, schemas), [config, schemas])
 
   const addComponent = useCallback(
     async (summary: SchemaIndexComponent) => {
@@ -226,8 +227,21 @@ function ConfigBuilderInner() {
       </aside>
       <div className="graph-panel">
         <div className="builder-toolbar">
-          <button type="button" onClick={() => setExportText(serialize(config))}>
+          <button type="button" onClick={() => setExportText(serialize(config, schemas))}>
             Export
+          </button>
+          <button
+            type="button"
+            className={issues.length > 0 ? 'issues-button has-issues' : 'issues-button'}
+            onClick={() => {
+              const firstIssue = issues[0]
+              if (firstIssue) {
+                setSelectedId(firstIssue.componentId)
+                setSelectedNodeIds(new Set([firstIssue.componentId]))
+              }
+            }}
+          >
+            {issues.length} issues
           </button>
           <button type="button" onClick={() => downloadJson('custom-alloy-builder.json', { formatVersion: 1, ir: config, layout })}>
             Save
@@ -268,7 +282,12 @@ function ConfigBuilderInner() {
       <aside className="inspector" aria-label="Selected component">
         {selected && selectedSchema ? (
           <>
-            <h2>{selected.type}</h2>
+            <div className="inspector-header">
+              <h2>{selected.type}</h2>
+              <a href={referenceUrl(selected.type)} target="_blank" rel="noreferrer">
+                Reference
+              </a>
+            </div>
             <label className="form-field">
               <span>label</span>
               <input
@@ -329,6 +348,41 @@ async function loadAndStoreSchema(
   const schema = await loadComponentSchema(name)
   setSchemas((current) => (current[name] ? current : { ...current, [name]: schema }))
   return schema
+}
+
+interface ConfigIssue {
+  componentId: string
+}
+
+function collectIssues(config: IRConfig, schemas: Record<string, ComponentSchema>): ConfigIssue[] {
+  return config.components.flatMap((component) => {
+    const schema = schemas[component.type]
+    return schema ? collectBodyIssues(component.id, schema.arguments, component.body) : []
+  })
+}
+
+function collectBodyIssues(componentId: string, schemaBody: ComponentSchema['arguments'], body: IRBody): ConfigIssue[] {
+  const issues: ConfigIssue[] = []
+  for (const attribute of schemaBody.attributes ?? []) {
+    if (attribute.required && !body.attrs[attribute.name]) {
+      issues.push({ componentId })
+    }
+  }
+  for (const block of schemaBody.blocks ?? []) {
+    const instances = body.blocks.filter((instance) => instance.name === block.name)
+    if (block.required && instances.length === 0) {
+      issues.push({ componentId })
+    }
+    for (const instance of instances) {
+      issues.push(...collectBodyIssues(componentId, block.body, instance.body))
+    }
+  }
+  return issues
+}
+
+function referenceUrl(componentType: string): string {
+  const family = componentType.split('.')[0] ?? componentType
+  return `https://grafana.com/docs/alloy/latest/reference/components/${family}/${componentType}/`
 }
 
 function buildRegistry(schemas: Record<string, ComponentSchema>): SchemaRegistry {

@@ -89,6 +89,65 @@ describe("serialize", () => {
     )
   })
 
+  it("serializes schema enum blocks with Alloy dotted syntax", () => {
+    const config = emptyConfig()
+    config.components.push({
+      id: "process",
+      type: "loki.process",
+      label: "default",
+      body: {
+        attrs: {},
+        blocks: [
+          {
+            name: "stage",
+            body: {
+              attrs: {},
+              blocks: [
+                {
+                  name: "json",
+                  body: {
+                    attrs: { expressions: { t: "map", v: { level: { t: "string", v: "level" } } } },
+                    blocks: [],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    })
+
+    expect(
+      serialize(config, {
+        "loki.process": {
+          name: "loki.process",
+          importPath: "",
+          stability: "generally-available",
+          community: false,
+          arguments: {
+            blocks: [
+              {
+                name: "stage",
+                required: false,
+                multiple: true,
+                enum: true,
+                body: {
+                  blocks: [{ name: "json", required: false, body: { attributes: [{ name: "expressions", required: false, type: { kind: "map", value: { kind: "string" } } }] } }],
+                },
+              },
+            ],
+          },
+        },
+      }),
+    ).toBe(
+      'loki.process "default" {\n' +
+        "\tstage.json {\n" +
+        '\t\texpressions = {"level" = "level"}\n' +
+        "\t}\n" +
+        "}\n",
+    )
+  })
+
   it("appends raw snippets after components", () => {
     const config = emptyConfig()
     config.components.push({

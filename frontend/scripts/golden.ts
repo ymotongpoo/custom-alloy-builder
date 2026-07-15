@@ -1,6 +1,7 @@
 import { readFile, readdir } from "node:fs/promises"
 import { basename, dirname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import type { ComponentSchema } from "../src/schema/types.ts"
 import type { IRConfig } from "../src/ir/types.ts"
 import { serialize } from "../src/river/serialize.ts"
 
@@ -12,7 +13,8 @@ async function main(): Promise<void> {
   const args = process.argv.slice(2)
 
   if (args.length === 1) {
-    process.stdout.write(serialize(await readConfig(resolve(process.cwd(), args[0]))))
+    const config = await readConfig(resolve(process.cwd(), args[0]))
+    process.stdout.write(serialize(config, await loadSchemas(config)))
     return
   }
 
@@ -27,7 +29,7 @@ async function main(): Promise<void> {
     const irPath = join(goldenDir, `${name}.ir.json`)
     const alloyPath = join(goldenDir, `${name}.alloy`)
     const [actual, expected] = await Promise.all([
-      readConfig(irPath).then((config) => serialize(config)),
+      readConfig(irPath).then(async (config) => serialize(config, await loadSchemas(config))),
       readFile(alloyPath, "utf8"),
     ])
 
@@ -42,6 +44,16 @@ async function main(): Promise<void> {
   }
 
   process.stdout.write(`golden ok: ${fixtureNames.length} fixture(s)\n`)
+}
+
+async function loadSchemas(config: IRConfig): Promise<Record<string, ComponentSchema>> {
+  const entries = await Promise.all(
+    Array.from(new Set(config.components.map((component) => component.type))).map(async (type) => {
+      const schemaPath = join(repoRoot, "schemas", config.alloyVersion, "components", `${type}.json`)
+      return [type, JSON.parse(await readFile(schemaPath, "utf8")) as ComponentSchema] as const
+    }),
+  )
+  return Object.fromEntries(entries)
 }
 
 async function readConfig(path: string): Promise<IRConfig> {

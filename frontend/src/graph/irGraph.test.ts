@@ -29,6 +29,20 @@ const registry: SchemaRegistry = {
     outputs: { receiver: 'loki.LogsReceiver' },
     inputs: {},
   },
+  'otelcol.exporter.otlphttp': {
+    outputs: { input: 'otelcol.Consumer' },
+    inputs: {},
+  },
+  'otelcol.processor.batch': {
+    outputs: { input: 'otelcol.Consumer' },
+    inputs: {
+      'output.0.traces': {
+        capsule: 'otelcol.Consumer.traces',
+        path: ['output', '0', 'traces'],
+        multiple: true,
+      },
+    },
+  },
 }
 
 const config = (): IRConfig => ({
@@ -83,6 +97,18 @@ describe('irGraph', () => {
         'in:targets:discovery.Targets',
       ),
     ).toBe(false)
+  })
+
+  it('allows generic otelcol consumer outputs to connect to signal-specific inputs', () => {
+    expect(
+      isConnectionAllowed(
+        registry,
+        'otelcol.exporter.otlphttp',
+        'out:input:otelcol.Consumer',
+        'otelcol.processor.batch',
+        'in:output.0.traces:otelcol.Consumer.traces',
+      ),
+    ).toBe(true)
   })
 
   it('removes refs on edge and node deletion', () => {

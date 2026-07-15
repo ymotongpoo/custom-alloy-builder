@@ -183,6 +183,28 @@ export function removeBlock(body: IRBody, path: string[], blockIndex: number): I
   return next
 }
 
+export function replaceBlock(body: IRBody, path: string[], blockIndex: number, block: IRBlockInstance): IRBody {
+  const next = cloneBody(body)
+  const parent = bodyAtPath(next, path)
+  parent.blocks[blockIndex] = block
+  return next
+}
+
+export function moveBlock(body: IRBody, path: string[], blockIndex: number, direction: -1 | 1): IRBody {
+  const next = cloneBody(body)
+  const parent = bodyAtPath(next, path)
+  const targetIndex = blockIndex + direction
+  if (targetIndex < 0 || targetIndex >= parent.blocks.length) {
+    return next
+  }
+  const [block] = parent.blocks.splice(blockIndex, 1)
+  if (!block) {
+    return next
+  }
+  parent.blocks.splice(targetIndex, 0, block)
+  return next
+}
+
 function collectBodyEdges(
   config: IRConfig,
   registry: SchemaRegistry,

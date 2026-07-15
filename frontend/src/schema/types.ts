@@ -37,6 +37,7 @@ export interface SchemaBlock {
   name: string
   required: boolean
   multiple?: boolean
+  enum?: boolean
   body: SchemaBody
 }
 

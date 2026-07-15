@@ -134,7 +134,9 @@
 .builder-toolbar button,
 .modal-actions button,
 .modal-header button,
-.block-field button {
+.block-field button,
+.row-editor button,
+.secret-input button {
   border: 1px solid #9ca3af;
   border-radius: 6px;
   background: #ffffff;
@@ -142,6 +144,11 @@
   cursor: pointer;
   font: inherit;
   padding: 7px 10px;
+}
+
+.builder-toolbar .has-issues {
+  border-color: #dc2626;
+  color: #b91c1c;
 }
 
 .react-flow {
@@ -172,6 +179,16 @@
   color: #4b5563;
   font-size: 12px;
   margin-top: 2px;
+}
+
+.builder-node-preview {
+  color: #334155;
+  font-size: 11px;
+  margin-top: 5px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .node-endpoints {
@@ -214,6 +231,19 @@
   gap: 10px;
 }
 
+.inspector-header {
+  align-items: flex-start;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.inspector-header a {
+  color: #1d4ed8;
+  font-size: 12px;
+  text-decoration: none;
+}
+
 .form-field {
   display: flex;
   flex-direction: column;
@@ -254,6 +284,58 @@
   color: #475569;
   font-size: 12px;
   padding: 8px;
+}
+
+.raw-input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+}
+
+.secret-input,
+.row-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.secret-input {
+  align-items: stretch;
+  flex-direction: row;
+}
+
+.secret-input input {
+  min-width: 0;
+}
+
+.secret-input button {
+  flex: 0 0 auto;
+}
+
+.row-editor-row {
+  display: flex;
+  gap: 6px;
+}
+
+.row-editor-row input {
+  min-width: 0;
+}
+
+.map-row {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) auto;
+}
+
+.add-block-row,
+.block-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.add-block-row {
+  margin-top: 8px;
+}
+
+.add-block-row select {
+  min-width: 0;
+  width: 100%;
 }
 
 .block-field {

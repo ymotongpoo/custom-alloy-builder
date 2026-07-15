@@ -1,7 +1,7 @@
 import type { CapsuleEndpoint, ComponentSchema, SchemaBody, SchemaType } from './types'
 
 export function canConnect(outputCapsule: string, inputCapsule: string): boolean {
-  return outputCapsule === inputCapsule
+  return outputCapsule === inputCapsule || inputCapsule.startsWith(`${outputCapsule}.`)
 }
 
 export function outputEndpoints(schema: ComponentSchema): CapsuleEndpoint[] {
