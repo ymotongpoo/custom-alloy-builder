@@ -1,7 +1,6 @@
-import { ReactFlow } from '@xyflow/react'
-import '@xyflow/react/dist/style.css'
 import './App.css'
 import { useState } from 'react'
+import { ConfigBuilder } from './ConfigBuilder'
 
 function App() {
   const [activeTab, setActiveTab] = useState<'config' | 'binary'>('config')
@@ -29,11 +28,7 @@ function App() {
       </header>
 
       {activeTab === 'config' ? (
-        <section className="placeholder-panel" aria-label="Config Builder">
-          <div className="canvas-placeholder">
-            <ReactFlow nodes={[]} edges={[]} fitView />
-          </div>
-        </section>
+        <ConfigBuilder />
       ) : (
         <section className="placeholder-panel" aria-label="Binary Builder">
           <div>Binary Builder placeholder</div>
