@@ -91,13 +91,16 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
 
   const filteredGroups = useMemo(() => {
     const needle = query.trim().toLowerCase()
-    const filtered = components.filter((component) => component.name.toLowerCase().includes(needle))
-    const groups = new Map<string, ComponentSummary[]>()
-    for (const component of filtered) {
-      const family = component.name.split('.')[0] || component.name
-      groups.set(family, [...(groups.get(family) ?? []), component])
+    const entries = components
+      .map(describeComponent)
+      .filter((entry) => entry.searchText.includes(needle))
+    const groups = new Map<string, ComponentEntry[]>()
+    for (const entry of entries) {
+      groups.set(entry.group, [...(groups.get(entry.group) ?? []), entry])
     }
-    return Array.from(groups.entries()).sort(([left], [right]) => left.localeCompare(right))
+    return Array.from(groups.entries()).sort(
+      ([left], [right]) => groupOrder(left) - groupOrder(right) || left.localeCompare(right),
+    )
   }, [components, query])
 
   const selectedTargets = strategy === 'docker' ? Array.from(targets).map(parseTarget) : [hostTarget()]
@@ -243,18 +246,21 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
         />
         {componentError ? <div role="alert">{componentError}</div> : null}
         <div className="component-groups">
-          {filteredGroups.map(([family, entries]) => (
-            <section key={family} className="component-group" aria-label={`${family} components`}>
-              <h2>{family}</h2>
-              {entries.map((component) => (
-                <label key={component.name} className="component-check">
+          {filteredGroups.map(([group, entries]) => (
+            <section key={group} className="component-group" aria-label={`${group} components`}>
+              <h2>{group}</h2>
+              {entries.map((entry) => (
+                <label key={entry.component.name} className="component-check">
                   <input
                     type="checkbox"
-                    checked={selected.has(component.name)}
-                    onChange={() => toggleSelected(component.name, setSelected)}
+                    checked={selected.has(entry.component.name)}
+                    onChange={() => toggleSelected(entry.component.name, setSelected)}
                   />
-                  <span>{component.name}</span>
-                  <small>{component.stability}</small>
+                  <span className="component-name">
+                    {entry.title}
+                    {entry.subtitle ? <span className="component-alias">{entry.subtitle}</span> : null}
+                  </span>
+                  <small>{entry.component.stability}</small>
                 </label>
               ))}
             </section>
@@ -298,6 +304,60 @@ function ArtifactItem({ jobID, artifact }: { jobID: string; artifact: BuildArtif
       {artifact.name} ({formatBytes(artifact.size)})
     </a>
   )
+}
+
+interface ComponentEntry {
+  component: ComponentSummary
+  group: string
+  title: string
+  subtitle?: string
+  searchText: string
+}
+
+const otelKindGroups: Record<string, string> = {
+  receiver: 'OpenTelemetry Collector / Receivers',
+  processor: 'OpenTelemetry Collector / Processors',
+  exporter: 'OpenTelemetry Collector / Exporters',
+  connector: 'OpenTelemetry Collector / Connectors',
+  auth: 'OpenTelemetry Collector / Extensions (auth)',
+  extension: 'OpenTelemetry Collector / Extensions',
+  storage: 'OpenTelemetry Collector / Extensions (storage)',
+}
+
+const groupRanks = [
+  'OpenTelemetry Collector / Receivers',
+  'OpenTelemetry Collector / Processors',
+  'OpenTelemetry Collector / Exporters',
+  'OpenTelemetry Collector / Connectors',
+  'OpenTelemetry Collector / Extensions',
+  'OpenTelemetry Collector / Extensions (auth)',
+  'OpenTelemetry Collector / Extensions (storage)',
+]
+
+function describeComponent(component: ComponentSummary): ComponentEntry {
+  const [family, kind, ...rest] = component.name.split('.')
+  const otelGroup = family === 'otelcol' && kind ? otelKindGroups[kind] : undefined
+  if (otelGroup && rest.length > 0) {
+    const title = rest.join('.')
+    return {
+      component,
+      group: otelGroup,
+      title,
+      subtitle: component.name,
+      searchText: `${title} ${component.name} ${otelGroup}`.toLowerCase(),
+    }
+  }
+  return {
+    component,
+    group: `Alloy / ${family || component.name}`,
+    title: component.name,
+    searchText: component.name.toLowerCase(),
+  }
+}
+
+function groupOrder(group: string): number {
+  const rank = groupRanks.indexOf(group)
+  return rank === -1 ? groupRanks.length : rank
 }
 
 function toggleSelected(name: string, setSelected: Dispatch<SetStateAction<ReadonlySet<string>>>): void {

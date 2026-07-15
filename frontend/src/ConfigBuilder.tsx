@@ -1,6 +1,7 @@
 import {
   Background,
   Controls,
+  Panel,
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
@@ -102,18 +103,33 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
   const issues = useMemo(() => collectIssues(config, schemas), [config, schemas])
 
   const addComponent = useCallback(
-    async (summary: SchemaIndexComponent) => {
+    async (summary: SchemaIndexComponent, position?: { x: number; y: number }) => {
       const schema = await loadAndStoreSchema(summary.name, setSchemas)
       const component = makeComponent(schema, nextLabel(config, schema.name))
       const index = config.components.length
       setConfig((current) => ({ ...current, components: [...current.components, component] }))
       setLayout((current) => ({
         ...current,
-        [component.id]: { x: 60 + (index % 3) * 220, y: 120 + Math.floor(index / 3) * 220 },
+        [component.id]: position ?? { x: 60 + (index % 3) * 220, y: 120 + Math.floor(index / 3) * 220 },
       }))
       setSelectedId(component.id)
+      window.setTimeout(() => flow.fitView({ padding: 0.2, duration: 200 }), 0)
     },
-    [config],
+    [config, flow],
+  )
+
+  const onCanvasDrop = useCallback(
+    (event: React.DragEvent) => {
+      const name = event.dataTransfer.getData('application/x-alloy-component')
+      const summary = schemaIndex?.components.find((component) => component.name === name)
+      if (!summary) {
+        return
+      }
+      event.preventDefault()
+      const position = flow.screenToFlowPosition({ x: event.clientX, y: event.clientY })
+      void addComponent(summary, position)
+    },
+    [addComponent, flow, schemaIndex],
   )
 
   const onNodesChange = useCallback(
@@ -224,10 +240,23 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
           onChange={(event) => setQuery(event.currentTarget.value)}
         />
         {schemaError ? <div role="alert">{schemaError}</div> : null}
+        <p className="palette-hint">Click a component, or drag it onto the canvas, to add it.</p>
         <div className="palette-list">
           {filtered.map((component) => (
-            <button key={component.name} type="button" draggable onClick={() => void addComponent(component)}>
-              <span>{component.name}</span>
+            <button
+              key={component.name}
+              type="button"
+              draggable
+              title={`Add ${component.name} to the canvas`}
+              onDragStart={(event) => event.dataTransfer.setData('application/x-alloy-component', component.name)}
+              onClick={() => void addComponent(component)}
+            >
+              <span>
+                <span className="palette-add" aria-hidden="true">
+                  +
+                </span>
+                {component.name}
+              </span>
               <small>{component.stability}</small>
             </button>
           ))}
@@ -281,10 +310,20 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
           isValidConnection={isValidConnection}
           deleteKeyCode={['Backspace', 'Delete']}
           onNodeClick={(_, node) => setSelectedId(node.id)}
+          onDragOver={(event) => {
+            event.preventDefault()
+            event.dataTransfer.dropEffect = 'copy'
+          }}
+          onDrop={onCanvasDrop}
           fitView
         >
           <Background />
           <Controls />
+          {config.components.length === 0 ? (
+            <Panel position="top-center" className="canvas-empty-hint">
+              The canvas is empty. Click a component in the left palette, or drag one here, to add it.
+            </Panel>
+          ) : null}
         </ReactFlow>
       </div>
       <aside className="inspector" aria-label="Selected component">

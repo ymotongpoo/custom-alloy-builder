@@ -174,9 +174,15 @@
   padding: 4px 2px;
 }
 
-.component-check span {
+.component-check .component-name {
   flex: 1;
   overflow-wrap: anywhere;
+}
+
+.component-check .component-alias {
+  color: #6b7280;
+  display: block;
+  font-size: 11px;
 }
 
 .component-check small {
@@ -292,6 +298,30 @@
   font: inherit;
   padding: 8px;
   width: 100%;
+}
+
+.palette-hint {
+  color: #6b7280;
+  font-size: 12px;
+  margin: 10px 0 0;
+}
+
+.palette-add {
+  color: #2563eb;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.canvas-empty-hint {
+  background: #ffffff;
+  border: 1px dashed #9ca3af;
+  border-radius: 8px;
+  color: #4b5563;
+  font-size: 13px;
+  margin-top: 24px;
+  max-width: 420px;
+  padding: 12px 16px;
+  text-align: center;
 }
 
 .palette-list {
