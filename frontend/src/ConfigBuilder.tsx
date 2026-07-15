@@ -7,6 +7,7 @@ import {
   useReactFlow,
   type Connection,
   type Edge,
+  type FinalConnectionState,
   type NodeChange,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
@@ -19,6 +20,7 @@ import { loadComponentSchema, loadSchemaIndex } from './schema/loader'
 import type { ComponentSchema, SchemaIndex, SchemaIndexComponent } from './schema/types'
 import {
   addConnectionRef,
+  describeInvalidConnection,
   emptyConfig,
   isConnectionAllowed,
   makeComponent,
@@ -29,6 +31,7 @@ import {
   toFlowNodes,
 } from './graph/irGraph'
 import { BuilderNode } from './graph/BuilderNode'
+import { ConnectionLine } from './graph/ConnectionLine'
 import type { BuilderDocument, LayoutMap, SchemaRegistry } from './graph/types'
 
 const nodeTypes = { builder: BuilderNode }
@@ -54,6 +57,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
   const [selectedId, setSelectedId] = useState<string | undefined>()
   const [selectedNodeIds, setSelectedNodeIds] = useState<ReadonlySet<string>>(new Set())
   const [pendingSource, setPendingSource] = useState<{ componentId: string; handle: string } | undefined>()
+  const [connectionAlert, setConnectionAlert] = useState<string | undefined>()
   const [query, setQuery] = useState('')
   const [exportText, setExportText] = useState<string | undefined>()
   const fileInput = useRef<HTMLInputElement>(null)
@@ -172,12 +176,47 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
       if (!connection.source || !connection.target || !connection.sourceHandle || !connection.targetHandle) {
         return
       }
+      setConnectionAlert(undefined)
       setConfig((current) =>
         addConnectionRef(current, registry, connection.source, connection.sourceHandle!, connection.target, connection.targetHandle!),
       )
     },
     [registry],
   )
+
+  const onConnectEnd = useCallback(
+    (event: MouseEvent | TouchEvent, connectionState: FinalConnectionState) => {
+      if (connectionState.isValid === true) {
+        return
+      }
+      const domTarget = endpointFromEvent(event)
+      const targetNodeId = connectionState.toNode?.id ?? domTarget?.nodeId
+      const targetHandleId = connectionState.toHandle?.id ?? domTarget?.handleId
+      if (!connectionState.fromNode || !connectionState.fromHandle?.id || !targetNodeId || !targetHandleId) {
+        return
+      }
+      const message = describeInvalidConnection(
+        config,
+        registry,
+        connectionState.fromNode.id,
+        connectionState.fromHandle.id,
+        targetNodeId,
+        targetHandleId,
+      )
+      if (message) {
+        setConnectionAlert(message)
+      }
+    },
+    [config, registry],
+  )
+
+  useEffect(() => {
+    if (!connectionAlert) {
+      return
+    }
+    const timeout = window.setTimeout(() => setConnectionAlert(undefined), 4000)
+    return () => window.clearTimeout(timeout)
+  }, [connectionAlert])
 
   const onEdgesDelete = useCallback((deleted: Edge[]) => {
     setConfig((current) => deleted.reduce((next, edge) => removeConnectionRef(next, edge), current))
@@ -306,8 +345,11 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
           nodeTypes={nodeTypes}
           onNodesChange={onNodesChange}
           onConnect={onConnect}
+          onConnectEnd={onConnectEnd}
           onEdgesDelete={onEdgesDelete}
           isValidConnection={isValidConnection}
+          connectionLineComponent={ConnectionLine}
+          connectionRadius={24}
           deleteKeyCode={['Backspace', 'Delete']}
           onNodeClick={(_, node) => setSelectedId(node.id)}
           onDragOver={(event) => {
@@ -322,6 +364,14 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
           {config.components.length === 0 ? (
             <Panel position="top-center" className="canvas-empty-hint">
               The canvas is empty. Click a component in the left palette, or drag one here, to add it.
+            </Panel>
+          ) : null}
+          {connectionAlert ? (
+            <Panel position="top-center" className="connection-alert" role="alert">
+              <span>{connectionAlert}</span>
+              <button type="button" aria-label="Dismiss connection warning" onClick={() => setConnectionAlert(undefined)}>
+                x
+              </button>
             </Panel>
           ) : null}
         </ReactFlow>
@@ -464,6 +514,15 @@ function isPositionChangeWithPosition(
   change: NodeChange,
 ): change is Extract<NodeChange, { type: 'position' }> & { position: { x: number; y: number } } {
   return change.type === 'position' && Boolean(change.position)
+}
+
+function endpointFromEvent(event: MouseEvent | TouchEvent): { nodeId: string; handleId: string } | undefined {
+  const targetHandle = event.target instanceof Element ? event.target.closest('.react-flow__handle') : null
+  const pointTarget = 'clientX' in event ? document.elementFromPoint(event.clientX, event.clientY) : null
+  const handle = targetHandle ?? pointTarget?.closest('.react-flow__handle')
+  const nodeId = handle?.getAttribute('data-nodeid')
+  const handleId = handle?.getAttribute('data-handleid')
+  return nodeId && handleId ? { nodeId, handleId } : undefined
 }
 
 function downloadText(filename: string, text: string): void {

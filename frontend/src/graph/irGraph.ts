@@ -55,10 +55,7 @@ export function toFlowNodes(config: IRConfig, layout: LayoutMap, registry: Schem
     type: 'builder',
     position: layout[component.id] ?? { x: 220 + index * 40, y: 120 + index * 60 },
     width: 230,
-    height: 130,
     initialWidth: 230,
-    initialHeight: 130,
-    measured: { width: 230, height: 130 },
     data: { component, registry: registry[component.type] },
   }))
 }
@@ -160,6 +157,33 @@ export function isConnectionAllowed(
   const outputCapsule = registry[sourceType]?.outputs[sourceEndpoint.attribute]
   const inputCapsule = registry[targetType]?.inputs[targetEndpoint.path.join('.')]?.capsule
   return Boolean(outputCapsule && inputCapsule && canConnect(outputCapsule, inputCapsule))
+}
+
+export function describeInvalidConnection(
+  config: IRConfig,
+  registry: SchemaRegistry,
+  sourceComponentId: string,
+  sourceHandle: string | null | undefined,
+  targetComponentId: string,
+  targetHandle: string | null | undefined,
+): string | undefined {
+  if (!sourceHandle || !targetHandle) {
+    return undefined
+  }
+  const source = config.components.find((component) => component.id === sourceComponentId)
+  const target = config.components.find((component) => component.id === targetComponentId)
+  const sourceEndpoint = parseSourceHandle(sourceHandle)
+  const targetEndpoint = parseTargetHandle(targetHandle)
+  if (!source || !target || !sourceEndpoint || !targetEndpoint) {
+    return undefined
+  }
+  const outputCapsule = registry[source.type]?.outputs[sourceEndpoint.attribute] ?? sourceEndpoint.capsule
+  const inputPath = targetEndpoint.path.join('.')
+  const inputCapsule = registry[target.type]?.inputs[inputPath]?.capsule ?? targetEndpoint.capsule
+  if (!outputCapsule || !inputCapsule || canConnect(outputCapsule, inputCapsule)) {
+    return undefined
+  }
+  return `output ${sourceEndpoint.attribute} (${outputCapsule}) cannot connect to input ${inputPath} (${inputCapsule}).`
 }
 
 export function updateAttr(body: IRBody, path: string[], value: IRValue | undefined): IRBody {

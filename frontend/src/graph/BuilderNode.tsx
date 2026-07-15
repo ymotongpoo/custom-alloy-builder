@@ -15,59 +15,47 @@ export function BuilderNode({ data, selected }: NodeProps) {
       <div className="builder-node-title">{nodeData.component.type}</div>
       <div className="builder-node-label">{nodeData.component.label}</div>
       {preview ? <div className="builder-node-preview">{preview}</div> : null}
-      <div className="node-handles">
-        <div>
-          {inputs.map(([path, input], index) => (
-            <Handle
-              key={path}
-              id={makeTargetHandle(input.path, input.capsule)}
-              type="target"
-              position={Position.Left}
-              title={input.capsule}
-              style={{ top: 44 + index * 24 }}
-              className="node-handle node-handle-target"
-            />
-          ))}
-        </div>
-        <div>
-          {outputs.map(([name, capsule], index) => (
-            <Handle
-              key={name}
-              id={makeSourceHandle(name, capsule)}
-              type="source"
-              position={Position.Right}
-              title={capsule}
-              style={{ top: 44 + index * 24 }}
-              className="node-handle node-handle-source"
-            />
-          ))}
-        </div>
-      </div>
       <div className="node-endpoints">
         <div>
           {inputs.map(([path, input]) => (
-            <button
-              key={path}
-              type="button"
-              className="endpoint-button"
-              title={input.capsule}
-              onClick={() => nodeData.onTargetEndpoint?.(nodeData.component.id, makeTargetHandle(input.path, input.capsule))}
-            >
-              in {path}
-            </button>
+            <div key={path} className="endpoint-row endpoint-row-target">
+              <Handle
+                id={makeTargetHandle(input.path, input.capsule)}
+                type="target"
+                position={Position.Left}
+                title={input.capsule}
+                className="node-handle node-handle-target"
+              />
+              <button
+                type="button"
+                className="endpoint-button"
+                title={input.capsule}
+                onClick={() => nodeData.onTargetEndpoint?.(nodeData.component.id, makeTargetHandle(input.path, input.capsule))}
+              >
+                in {path}
+              </button>
+            </div>
           ))}
         </div>
         <div>
           {outputs.map(([name, capsule]) => (
-            <button
-              key={name}
-              type="button"
-              className={`endpoint-button${nodeData.pendingSourceHandle === makeSourceHandle(name, capsule) ? ' is-pending' : ''}`}
-              title={capsule}
-              onClick={() => nodeData.onSourceEndpoint?.(nodeData.component.id, makeSourceHandle(name, capsule))}
-            >
-              out {name}
-            </button>
+            <div key={name} className="endpoint-row endpoint-row-source">
+              <button
+                type="button"
+                className={`endpoint-button${nodeData.pendingSourceHandle === makeSourceHandle(name, capsule) ? ' is-pending' : ''}`}
+                title={capsule}
+                onClick={() => nodeData.onSourceEndpoint?.(nodeData.component.id, makeSourceHandle(name, capsule))}
+              >
+                out {name}
+              </button>
+              <Handle
+                id={makeSourceHandle(name, capsule)}
+                type="source"
+                position={Position.Right}
+                title={capsule}
+                className="node-handle node-handle-source"
+              />
+            </div>
           ))}
         </div>
       </div>

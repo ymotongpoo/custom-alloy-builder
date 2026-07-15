@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { IRConfig } from '../ir/types'
 import {
   addConnectionRef,
+  describeInvalidConnection,
   isConnectionAllowed,
   removeComponent,
   removeConnectionRef,
@@ -97,6 +98,45 @@ describe('irGraph', () => {
         'in:targets:discovery.Targets',
       ),
     ).toBe(false)
+  })
+
+  it('describes invalid capsule connections', () => {
+    const invalid = describeInvalidConnection(
+      {
+        ...config(),
+        components: [
+          ...config().components,
+          {
+            id: 'loki',
+            type: 'loki.write',
+            label: 'default',
+            body: { attrs: {}, blocks: [] },
+          },
+        ],
+      },
+      registry,
+      'loki',
+      'out:receiver:loki.LogsReceiver',
+      'scrape',
+      'in:forward_to:prometheus.Appendable',
+    )
+
+    expect(invalid).toBe(
+      'output receiver (loki.LogsReceiver) cannot connect to input forward_to (prometheus.Appendable).',
+    )
+  })
+
+  it('does not describe valid capsule connections as invalid', () => {
+    expect(
+      describeInvalidConnection(
+        config(),
+        registry,
+        'kube',
+        'out:targets:discovery.Targets',
+        'scrape',
+        'in:targets:discovery.Targets',
+      ),
+    ).toBeUndefined()
   })
 
   it('allows generic otelcol consumer outputs to connect to signal-specific inputs', () => {

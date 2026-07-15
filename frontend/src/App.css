@@ -398,6 +398,7 @@
   background: #ffffff;
   border: 1px solid #94a3b8;
   border-radius: 8px;
+  box-sizing: border-box;
   min-width: 210px;
   padding: 10px 12px;
 }
@@ -442,6 +443,22 @@
   gap: 3px;
 }
 
+.endpoint-row {
+  align-items: center;
+  display: flex;
+  min-height: 20px;
+  position: relative;
+}
+
+.endpoint-row-target {
+  padding-left: 20px;
+}
+
+.endpoint-row-source {
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
 .endpoint-button {
   background: transparent;
   border: 0;
@@ -458,8 +475,81 @@
 }
 
 .node-handle {
-  height: 10px;
-  width: 10px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px rgb(15 23 42 / 18%);
+  cursor: crosshair;
+  height: 14px;
+  pointer-events: all;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease,
+    box-shadow 120ms ease;
+  width: 14px;
+}
+
+.endpoint-row .node-handle {
+  top: 50%;
+}
+
+.endpoint-row-target .node-handle {
+  background: #0ea5e9;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.endpoint-row-source .node-handle {
+  background: #f59e0b;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.endpoint-row-target .node-handle:hover,
+.endpoint-row-target .node-handle.connectionindicator {
+  transform: translateY(-50%) scale(1.18);
+}
+
+.endpoint-row-source .node-handle:hover,
+.endpoint-row-source .node-handle.connectionindicator {
+  transform: translateY(-50%) scale(1.18);
+}
+
+.react-flow__handle.valid,
+.react-flow__handle.connectingto.valid {
+  background: #16a34a;
+  box-shadow: 0 0 0 4px rgb(22 163 74 / 20%);
+}
+
+.react-flow__handle.connectingto:not(.valid) {
+  opacity: 0.45;
+}
+
+.react-flow__handle.connectionindicator {
+  outline: 2px solid rgb(37 99 235 / 35%);
+  outline-offset: 2px;
+}
+
+.connection-alert {
+  align-items: center;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  color: #991b1b;
+  display: flex;
+  font-size: 13px;
+  gap: 10px;
+  margin-top: 12px;
+  max-width: 620px;
+  padding: 10px 12px;
+}
+
+.connection-alert button {
+  background: transparent;
+  border: 0;
+  color: #7f1d1d;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 2px 4px;
 }
 
 .schema-form {
