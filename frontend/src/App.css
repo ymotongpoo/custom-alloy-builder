@@ -1,0 +1,44 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: #f8fafc;
+  color: #111827;
+}
+
+.app-header {
+  border-bottom: 1px solid #d1d5db;
+  padding: 24px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tabs button {
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #111827;
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 12px;
+}
+
+.tabs button[aria-selected='true'] {
+  background: #111827;
+  border-color: #111827;
+  color: #ffffff;
+}
+
+.placeholder-panel {
+  flex: 1;
+  padding: 24px;
+}
+
+.canvas-placeholder {
+  height: 420px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+}

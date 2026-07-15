@@ -9,7 +9,11 @@ backend/bin/
 
 # Build workspaces and artifacts
 build/
-dist/
+bin/
+
+# Embedded web UI: keep the committed placeholder, ignore copied build output
+backend/internal/webui/dist/*
+!backend/internal/webui/dist/index.html
 
 # Editor / OS
 .DS_Store
