@@ -16,6 +16,67 @@ export function emptyConfig(alloyVersion = 'v1.17.1'): IRConfig {
   return { formatVersion: 1, alloyVersion, components: [], rawSnippets: [] }
 }
 
+export function starterSample(registry: SchemaRegistry): { config: IRConfig; layout: LayoutMap } {
+  const config: IRConfig = {
+    ...emptyConfig(),
+    components: [
+      {
+        id: 'starter-discovery-kubernetes',
+        type: 'discovery.kubernetes',
+        label: 'default',
+        body: { attrs: { role: { t: 'string', v: 'pod' } }, blocks: [] },
+      },
+      {
+        id: 'starter-prometheus-scrape',
+        type: 'prometheus.scrape',
+        label: 'default',
+        body: { attrs: { job_name: { t: 'string', v: 'example' } }, blocks: [] },
+      },
+      {
+        id: 'starter-prometheus-remote-write',
+        type: 'prometheus.remote_write',
+        label: 'default',
+        body: {
+          attrs: {},
+          blocks: [
+            {
+              name: 'endpoint',
+              body: { attrs: { url: { t: 'string', v: 'http://localhost:9009/api/v1/push' } }, blocks: [] },
+            },
+          ],
+        },
+      },
+    ],
+    rawSnippets: [],
+  }
+
+  let wired = addConnectionRef(
+    config,
+    registry,
+    'starter-discovery-kubernetes',
+    makeSourceHandle('targets', registry['discovery.kubernetes']?.outputs.targets ?? 'discovery.Targets'),
+    'starter-prometheus-scrape',
+    makeTargetHandle(['targets'], registry['prometheus.scrape']?.inputs.targets?.capsule ?? 'discovery.Targets'),
+  )
+  wired = addConnectionRef(
+    wired,
+    registry,
+    'starter-prometheus-remote-write',
+    makeSourceHandle('receiver', registry['prometheus.remote_write']?.outputs.receiver ?? 'prometheus.Appendable'),
+    'starter-prometheus-scrape',
+    makeTargetHandle(['forward_to'], registry['prometheus.scrape']?.inputs.forward_to?.capsule ?? 'prometheus.Appendable'),
+  )
+
+  return {
+    config: wired,
+    layout: {
+      'starter-discovery-kubernetes': { x: 40, y: 140 },
+      'starter-prometheus-scrape': { x: 340, y: 140 },
+      'starter-prometheus-remote-write': { x: 640, y: 140 },
+    },
+  }
+}
+
 export function makeComponent(schema: ComponentSchema, label: string): IRComponent {
   return {
     id: `${schema.name}-${crypto.randomUUID()}`,

@@ -37,6 +37,9 @@ func TestQueueRunsJobTransitionsAndArtifacts(t *testing.T) {
 	if snapshot.Artifacts[0].Kind != "binary" {
 		t.Fatalf("artifact kind = %q, want binary", snapshot.Artifacts[0].Kind)
 	}
+	if !filepath.IsAbs(snapshot.Artifacts[0].Path) {
+		t.Fatalf("artifact path = %q, want absolute path", snapshot.Artifacts[0].Path)
+	}
 }
 
 func TestQueueRunsImageJobAsLoadedDockerImage(t *testing.T) {
@@ -63,6 +66,36 @@ func TestQueueRunsImageJobAsLoadedDockerImage(t *testing.T) {
 	}
 	if snapshot.Artifacts[0].Name == "" {
 		t.Fatal("image tag is empty")
+	}
+	if snapshot.Artifacts[0].Path != "" {
+		t.Fatalf("image artifact path = %q, want empty", snapshot.Artifacts[0].Path)
+	}
+}
+
+func TestQueueRunsMultiTargetImageJobAsOCIArtifact(t *testing.T) {
+	queue := newTestQueue(t)
+	job, err := queue.Enqueue(Request{
+		Version:     "v1.17.1",
+		ImportPaths: []string{"github.com/grafana/alloy/internal/component/prometheus/scrape"},
+		Targets:     []Target{{OS: "linux", Arch: "amd64"}, {OS: "linux", Arch: "arm64"}},
+		Output:      "image",
+		Strategy:    "docker",
+		VersionInfo: buildspec.VersionInfo{Version: "v1.17.1", BuildImageTag: "v0.1.33"},
+	})
+	if err != nil {
+		t.Fatalf("Enqueue() error = %v", err)
+	}
+
+	waitForStatus(t, job, StatusDone)
+	snapshot := job.Snapshot()
+	if len(snapshot.Artifacts) != 1 {
+		t.Fatalf("artifacts = %v, want 1", snapshot.Artifacts)
+	}
+	if snapshot.Artifacts[0].Kind != "oci" {
+		t.Fatalf("artifact kind = %q, want oci", snapshot.Artifacts[0].Kind)
+	}
+	if !filepath.IsAbs(snapshot.Artifacts[0].Path) {
+		t.Fatalf("artifact path = %q, want absolute path", snapshot.Artifacts[0].Path)
 	}
 }
 

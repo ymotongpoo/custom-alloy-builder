@@ -27,6 +27,7 @@ import {
   nextLabel,
   removeComponent,
   removeConnectionRef,
+  starterSample,
   toFlowEdges,
   toFlowNodes,
 } from './graph/irGraph'
@@ -61,6 +62,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
   const [query, setQuery] = useState('')
   const [exportText, setExportText] = useState<string | undefined>()
   const fileInput = useRef<HTMLInputElement>(null)
+  const starterState = useRef<'pending' | 'applied' | 'suppressed'>('pending')
   const flow = useReactFlow()
 
   useEffect(() => {
@@ -106,8 +108,30 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
   const selectedSchema = selected ? schemas[selected.type] : undefined
   const issues = useMemo(() => collectIssues(config, schemas), [config, schemas])
 
+  useEffect(() => {
+    const starterTypes = ['discovery.kubernetes', 'prometheus.scrape', 'prometheus.remote_write']
+    if (!schemaIndex || starterState.current !== 'pending' || config.components.length > 0) {
+      return
+    }
+    void Promise.all(starterTypes.map((type) => loadAndStoreSchema(type, setSchemas)))
+      .then((starterSchemas) => {
+        if (starterState.current !== 'pending') {
+          return
+        }
+        const registryWithStarter = buildRegistry(Object.fromEntries(starterSchemas.map((schema) => [schema.name, schema])))
+        const sample = starterSample(registryWithStarter)
+        setConfig(sample.config)
+        setLayout(sample.layout)
+        setSelectedId(sample.config.components[0]?.id)
+        starterState.current = 'applied'
+        window.setTimeout(() => flow.fitView({ padding: 0.2, duration: 200 }), 0)
+      })
+      .catch((error: unknown) => setSchemaError(error instanceof Error ? error.message : String(error)))
+  }, [config.components.length, flow, schemaIndex])
+
   const addComponent = useCallback(
     async (summary: SchemaIndexComponent, position?: { x: number; y: number }) => {
+      starterState.current = 'suppressed'
       const schema = await loadAndStoreSchema(summary.name, setSchemas)
       const component = makeComponent(schema, nextLabel(config, schema.name))
       const index = config.components.length
@@ -130,6 +154,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
         return
       }
       event.preventDefault()
+      starterState.current = 'suppressed'
       const position = flow.screenToFlowPosition({ x: event.clientX, y: event.clientY })
       void addComponent(summary, position)
     },
@@ -140,6 +165,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
     (changes: NodeChange[]) => {
       const removedIds = changes.filter((change) => change.type === 'remove').map((change) => change.id)
       if (removedIds.length > 0) {
+        starterState.current = 'suppressed'
         setConfig((current) => removedIds.reduce((next, id) => removeComponent(next, id), current))
         setSelectedId((current) => (current && removedIds.includes(current) ? undefined : current))
       }
@@ -162,6 +188,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
       }
       const positionChanges = changes.filter(isPositionChangeWithPosition)
       if (positionChanges.length > 0) {
+        starterState.current = 'suppressed'
         setLayout((current) => ({
           ...current,
           ...Object.fromEntries(positionChanges.map((change) => [change.id, change.position])),
@@ -177,6 +204,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
         return
       }
       setConnectionAlert(undefined)
+      starterState.current = 'suppressed'
       setConfig((current) =>
         addConnectionRef(current, registry, connection.source, connection.sourceHandle!, connection.target, connection.targetHandle!),
       )
@@ -219,6 +247,9 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
   }, [connectionAlert])
 
   const onEdgesDelete = useCallback((deleted: Edge[]) => {
+    if (deleted.length > 0) {
+      starterState.current = 'suppressed'
+    }
     setConfig((current) => deleted.reduce((next, edge) => removeConnectionRef(next, edge), current))
   }, [])
 
@@ -240,6 +271,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
       if (!selected) {
         return
       }
+      starterState.current = 'suppressed'
       setConfig((current) => ({
         ...current,
         components: current.components.map((component) =>
@@ -256,6 +288,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
   }, [query, schemaIndex])
 
   async function loadDocument(file: File) {
+    starterState.current = 'suppressed'
     const text = await file.text()
     const document = JSON.parse(text) as BuilderDocument
     if (document.formatVersion !== 1) {
@@ -269,6 +302,20 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
     window.setTimeout(() => flow.fitView(), 0)
   }
 
+  function clearCanvas() {
+    if (!window.confirm('Clear the canvas?')) {
+      return
+    }
+    starterState.current = 'suppressed'
+    setConfig(emptyConfig())
+    setLayout({})
+    setSelectedId(undefined)
+    setSelectedNodeIds(new Set())
+    setPendingSource(undefined)
+    setConnectionAlert(undefined)
+    setExportText(undefined)
+  }
+
   return (
     <section className="builder-shell" aria-label="Config Builder">
       <aside className="palette" aria-label="Component palette">
@@ -279,7 +326,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
           onChange={(event) => setQuery(event.currentTarget.value)}
         />
         {schemaError ? <div role="alert">{schemaError}</div> : null}
-        <p className="palette-hint">Click a component, or drag it onto the canvas, to add it.</p>
+        <p className="palette-hint">Click a component, or drag it onto the canvas, to add it. Drag handles to connect.</p>
         <div className="palette-list">
           {filtered.map((component) => (
             <button
@@ -324,6 +371,9 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
           </button>
           <button type="button" onClick={() => fileInput.current?.click()}>
             Load
+          </button>
+          <button type="button" onClick={clearCanvas}>
+            Clear
           </button>
           <input
             ref={fileInput}
@@ -389,7 +439,10 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
               <span>label</span>
               <input
                 value={selected.label}
-                onChange={(event) => updateSelectedLabel(selected, event.currentTarget.value, setConfig)}
+                onChange={(event) => {
+                  starterState.current = 'suppressed'
+                  updateSelectedLabel(selected, event.currentTarget.value, setConfig)
+                }}
               />
             </label>
             <SchemaForm schema={selectedSchema} body={selected.body} onChange={updateSelectedBody} />
@@ -397,6 +450,7 @@ function ConfigBuilderInner({ onComponentsChange }: ConfigBuilderProps) {
               type="button"
               className="remove-component"
               onClick={() => {
+                starterState.current = 'suppressed'
                 setConfig((current) => removeComponent(current, selected.id))
                 setSelectedNodeIds((current) => {
                   const next = new Set(current)

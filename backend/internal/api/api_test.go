@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"embed"
+	"encoding/json"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -119,6 +120,22 @@ func TestCreateBuildAndSSE(t *testing.T) {
 	}
 
 	waitForBuildStatus(t, handler, id, "done")
+	req = httptest.NewRequest(http.MethodGet, "/api/v1/builds/"+id, nil)
+	rec = httptest.NewRecorder()
+	handler.ServeHTTP(rec, req)
+	if rec.Code != http.StatusOK {
+		t.Fatalf("build status = %d, want 200: %s", rec.Code, rec.Body.String())
+	}
+	var snapshot jobs.Snapshot
+	if err := json.Unmarshal(rec.Body.Bytes(), &snapshot); err != nil {
+		t.Fatal(err)
+	}
+	if len(snapshot.Artifacts) != 1 {
+		t.Fatalf("artifacts = %v, want 1", snapshot.Artifacts)
+	}
+	if !filepath.IsAbs(snapshot.Artifacts[0].Path) {
+		t.Fatalf("artifact path = %q, want absolute path", snapshot.Artifacts[0].Path)
+	}
 }
 
 func newTestHandler(t *testing.T) http.Handler {

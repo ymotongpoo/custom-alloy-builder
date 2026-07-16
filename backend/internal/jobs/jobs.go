@@ -48,6 +48,7 @@ type Artifact struct {
 	Name string `json:"name"`
 	Size int64  `json:"size"`
 	Kind string `json:"kind"`
+	Path string `json:"path,omitempty"`
 }
 
 type Snapshot struct {
@@ -367,7 +368,7 @@ func (j *Job) run(ctx context.Context) {
 			j.fail(fmt.Errorf("stat artifact: %w", err))
 			return
 		}
-		j.addArtifact(Artifact{Name: name, Size: info.Size(), Kind: "binary"})
+		j.addArtifact(Artifact{Name: name, Size: info.Size(), Kind: "binary", Path: outputPath})
 		j.writeLog("wrote artifact %s", name)
 	}
 	j.setStatus(StatusDone)
@@ -410,7 +411,7 @@ func (j *Job) buildImage(ctx context.Context, artifactDir string) {
 			j.fail(fmt.Errorf("stat image artifact: %w", err))
 			return
 		}
-		j.addArtifact(Artifact{Name: filepath.Base(spec.OutputPath), Size: info.Size(), Kind: "oci"})
+		j.addArtifact(Artifact{Name: filepath.Base(spec.OutputPath), Size: info.Size(), Kind: "oci", Path: spec.OutputPath})
 		j.writeLog("wrote image artifact %s", filepath.Base(spec.OutputPath))
 	}
 	j.setStatus(StatusDone)

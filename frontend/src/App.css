@@ -95,7 +95,8 @@
 }
 
 .binary-controls button,
-.strategy-panel button {
+.strategy-panel button,
+.artifact-detail button {
   border: 1px solid #9ca3af;
   border-radius: 6px;
   background: #ffffff;
@@ -231,14 +232,36 @@
   text-decoration: none;
 }
 
+.file-artifact,
 .image-artifact {
   display: grid;
-  gap: 4px;
+  gap: 6px;
 }
 
 .image-artifact span,
-.image-artifact code {
+.image-artifact code,
+.file-artifact code {
   overflow-wrap: anywhere;
+}
+
+.artifact-detail {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+}
+
+.artifact-detail code {
+  background: #f3f4f6;
+  border-radius: 4px;
+  flex: 1;
+  font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  padding: 5px 6px;
+}
+
+.artifact-detail button {
+  flex: 0 0 auto;
+  font-size: 12px;
+  padding: 5px 8px;
 }
 
 .local-run-panel {
@@ -263,7 +286,12 @@
   display: grid;
   flex: 1;
   grid-template-columns: 280px minmax(360px, 1fr) 340px;
+  /* One row pinned to the shell height; without this the auto row grows to
+     the palette's ~12000px content height and the canvas becomes taller than
+     the viewport, hiding the nodes. */
+  grid-template-rows: minmax(0, 1fr);
   height: calc(100vh - 69px);
+  max-height: calc(100vh - 69px);
   min-height: 0;
 }
 

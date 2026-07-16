@@ -45,6 +45,7 @@ export interface BuildArtifact {
   name: string
   size: number
   kind?: 'binary' | 'image' | 'oci'
+  path?: string
 }
 
 export interface BuildSnapshot {

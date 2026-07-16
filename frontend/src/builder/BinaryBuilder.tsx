@@ -292,17 +292,41 @@ export function BinaryBuilder({ currentConfigComponents }: BinaryBuilderProps) {
 
 function ArtifactItem({ jobID, artifact }: { jobID: string; artifact: BuildArtifact }) {
   if (artifact.kind === 'image') {
+    const command = `docker run --rm ${artifact.name} --version`
     return (
       <div className="image-artifact">
         <span>{artifact.name}</span>
-        <code>docker run --rm {artifact.name} --version</code>
+        <CopyableCommand command={command} />
       </div>
     )
   }
+  const command = artifact.path ? `chmod +x ${artifact.path} && ${artifact.path} --version` : undefined
   return (
-    <a href={artifactUrl(jobID, artifact.name)} download>
-      {artifact.name} ({formatBytes(artifact.size)})
-    </a>
+    <div className="file-artifact">
+      <a href={artifactUrl(jobID, artifact.name)} download>
+        {artifact.name} ({formatBytes(artifact.size)})
+      </a>
+      {artifact.path ? (
+        <div className="artifact-detail">
+          <code>{artifact.path}</code>
+          <button type="button" onClick={() => void navigator.clipboard.writeText(artifact.path ?? '')}>
+            Copy path
+          </button>
+        </div>
+      ) : null}
+      {command ? <CopyableCommand command={command} /> : null}
+    </div>
+  )
+}
+
+function CopyableCommand({ command }: { command: string }) {
+  return (
+    <div className="artifact-detail">
+      <code>{command}</code>
+      <button type="button" onClick={() => void navigator.clipboard.writeText(command)}>
+        Copy command
+      </button>
+    </div>
   )
 }
 

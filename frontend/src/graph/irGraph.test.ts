@@ -6,6 +6,7 @@ import {
   isConnectionAllowed,
   removeComponent,
   removeConnectionRef,
+  starterSample,
   toFlowEdges,
 } from './irGraph'
 import type { SchemaRegistry } from './types'
@@ -86,6 +87,23 @@ describe('irGraph', () => {
       v: [{ t: 'ref', target: 'prometheus.remote_write.default.receiver' }],
     })
     expect(toFlowEdges(next, registry)).toHaveLength(2)
+  })
+
+  it('builds the starter sample with three nodes and two edges', () => {
+    const sample = starterSample(registry)
+
+    expect(sample.config.components.map((component) => component.type)).toEqual([
+      'discovery.kubernetes',
+      'prometheus.scrape',
+      'prometheus.remote_write',
+    ])
+    expect(sample.config.components[0]?.body.attrs.role).toEqual({ t: 'string', v: 'pod' })
+    expect(sample.config.components[1]?.body.attrs.job_name).toEqual({ t: 'string', v: 'example' })
+    expect(sample.config.components[2]?.body.blocks[0]?.body.attrs.url).toEqual({
+      t: 'string',
+      v: 'http://localhost:9009/api/v1/push',
+    })
+    expect(toFlowEdges(sample.config, registry)).toHaveLength(2)
   })
 
   it('rejects mismatched capsule connections', () => {
